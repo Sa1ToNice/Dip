@@ -1,0 +1,23 @@
+﻿@model Car
+    <div class="col-lg-4 p-2">
+        <button type="button" class="btn btn-light">
+
+
+
+
+            
+
+
+
+            <h2>Модель: @Model.name</h2>
+            <img class="rounded d-block" src="@Model.img" alt="@Model.name" width="300" height="250" />
+
+            <p>@Model.desc</p>
+            <p>Цена: @Model.price.ToString("c")</p>
+
+        </button>
+
+
+    </div>
+
+    

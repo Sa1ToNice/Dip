@@ -1,0 +1,21 @@
+﻿<h1 class="text-xl-center">Все автомобили</h1>
+<h3>@Model.curCategory</h3>
+<div class="container">
+    <div class="row mt-5 mb-4">
+        @{
+            foreach (Car car in Model.getAllCars)
+            {
+                @Html.Partial("AllCars", car)
+
+            }
+        }
+
+        
+
+    </div>
+
+</div>
+
+
+
+
