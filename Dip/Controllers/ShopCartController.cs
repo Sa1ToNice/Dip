@@ -11,7 +11,7 @@ namespace Dip.Controllers
 {
     public class ShopCartController : Controller
     {
-        private readonly IAllCars _carRep;
+        private IAllCars _carRep;
         private readonly ShopCart _shopCart;
 
         public ShopCartController(IAllCars carRep, ShopCart shopCart)

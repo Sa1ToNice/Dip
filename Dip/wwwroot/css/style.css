@@ -1,8 +1,12 @@
 ﻿body {
     background-image: url(/img/back.jpg);
     word-break: break-word;
+    
 }
 
+h1 {
+    padding-top: 30px;
+}
 footer {
     background: #343a40;
     color: white;
