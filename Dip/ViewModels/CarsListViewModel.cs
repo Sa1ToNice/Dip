@@ -9,6 +9,6 @@ namespace Dip.ViewModels
     public class CarsListViewModel
     {
         public IEnumerable<Car> getAllCars { get; set; }
-        public string curCategory { get; set; }
+        public string currCategory { get; set; }
     }
 }

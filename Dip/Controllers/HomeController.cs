@@ -24,7 +24,15 @@ namespace Dip.Controllers
             var homeCars = new HomeViewModel 
             { fawCars = _carRep.getFawCars
             };
+            ViewBag.Title = "Главная страница";
             return View(homeCars);
+        }
+
+        public ViewResult About()
+        {
+            
+            ViewBag.Title = "О нас";
+            return View();
         }
 
     }
