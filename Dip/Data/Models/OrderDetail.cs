@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 
 namespace Dip.Data.Models
 {
-    public class ShopCartItem
+    public class OrderDetail
     {
         public int id { get; set; }
-        public Car car { get; set; }
+        public int orderID { get; set; }
+        public int carID { get; set; }
         public uint price { get; set; }
-        public string ShopCartId { get; set; }
+        public virtual Car car { get; set; }
+        public virtual Order order { get; set; }
+        
 
     }
 }

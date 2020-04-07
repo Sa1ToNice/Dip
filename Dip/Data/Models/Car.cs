@@ -11,7 +11,7 @@ namespace Dip.Data.Models
         public string name { set; get; }
         public string desc { set; get; }
         public string img { set; get; }
-        public int price { set; get; }
+        public uint price { set; get; }
         public bool favorite { get; set; }
         public bool available { get; set; }
         public int categoryId { set; get; }
