@@ -1,20 +1,25 @@
-﻿<h1 class="text-xl-center">Все @Model.currCategory автомобили</h1>
+﻿
+    <div class="container bg-white p-2">
+       
+        <h1 class="text-xl-center">Все @Model.currCategory автомобили</h1>
+        <div class="row mt-5 mb-4 text-center">
+            @{
+                foreach (Car car in Model.getAllCars)
+                {
+                    @Html.Partial("AllCars", car)
 
-<div class="container">
-    <div class="row mt-5 mb-4 text-center" >
-        @{
-            foreach (Car car in Model.getAllCars)
-            {
-                @Html.Partial("AllCars", car)
-
+                }
             }
-        }
 
-        
+
+
+        </div>
 
     </div>
 
-</div>
+    
+
+
 
 
 

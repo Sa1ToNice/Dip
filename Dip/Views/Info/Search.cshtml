@@ -1,0 +1,33 @@
+﻿@model InfoViewModel
+
+
+    <div class="container bg-white p-2">
+
+        <h1>Справочник</h1>
+        <div class="list-group">
+
+            @if (!Model.getInf.Any())
+            {
+                <p>Результатов "Поиска" не найдено</p>
+            }
+            else
+            {
+                foreach (var inf in Model.getInf)
+                {
+
+                    <a href="List/@inf.name" class="list-group-item list-group-item-action">
+
+
+                        @inf.name
+
+                    </a>
+                }
+            }
+
+
+
+        </div>
+
+    </div>
+
+   

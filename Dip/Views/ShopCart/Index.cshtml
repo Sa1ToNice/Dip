@@ -1,13 +1,29 @@
 ﻿@model ShopCartViewModel
-<h1>Корзина</h1>
-<div class="container">
-    @foreach(var el in Model.shopCart.listShopItems)
-    {
-        <div class="alert alert-warning mt-3">
-            <b>Автомобиль:</b>@el.car.name<br/>
-            <b>Цена:</b>@el.car.price.ToString("c")
+
+
+    <div class="container bg-white p-2">
+
+        <h1>Корзина</h1>
+        <div class="container">
+            @foreach (var el in Model.shopCart.listShopItems)
+            {
+                <div class="alert alert-warning mt-3">
+                    <b>Автомобиль:</b>@el.car.name<br />
+                    <b>Цена:</b>@el.car.price.ToString("c")
+                </div>
+
+            }
+
+            @if (Model.shopCart.listShopItems.Count == 0)
+            {
+                <p>Корзина пуста</p>
+            }
+            else
+            {
+                <a class=" btn btn-danger" asp-controller="Order" asp-action="Checkout">Оплатить</a>
+            }
+
         </div>
-    }
-    <hr/>
-    <a class=" btn btn-danger" asp-controller="Order" asp-action="Checkout">Оплатить</a>
-</div>
+
+    </div>
+

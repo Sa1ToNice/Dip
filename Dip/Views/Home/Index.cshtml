@@ -1,18 +1,29 @@
 ﻿@model HomeViewModel
 
-<h1 class="text-xl-center">Лучшие автомобили</h1>
-<div class="container">
-    <div class="row mt-5 mb-4 text-center">
-        @{
-            foreach (Car car in Model.fawCars)
-            {
-                @Html.Partial("AllCars", car)
+    <div class="container bg-white p-2">
 
-            }
-        }
+        <h1 class="text-xl-center">Описание</h1>
+      
 
+        @*<div class="container">
+            <div class="row mt-5 mb-4 text-center">
+                @{
+                    foreach (Car car in Model.fawCars)
+                    {
+                        @Html.Partial("AllCars", car)
+
+                    }
+                }
+
+            </div>
+
+        </div>*@
 
 
     </div>
 
-</div>
+
+
+
+
+

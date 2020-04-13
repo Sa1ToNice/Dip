@@ -30,6 +30,20 @@ namespace Dip.Data
                     );
             }
 
+
+            if (!content.Info.Any())
+            {
+                content.AddRange(
+
+
+                        new Info { name = "Инф1", desc = "Текст1", img = "/img/1.jpg" },
+                        new Info { name = "Инф2", desc = "Текст2", img = "/img/1.jpg" },
+                        new Info { name = "Инф3", desc = "Текст3", img = "/img/1.jpg" }
+
+
+                    );
+            }
+
             content.SaveChanges();
         }
 

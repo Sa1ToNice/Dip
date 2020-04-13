@@ -22,6 +22,7 @@ namespace Dip.Data.Repository
 
         public IEnumerable<Car> getFawCars => appDBContent.Car.Where(p => p.favorite).Include(c => c.Category);
 
+
         public Car getObjectCar(int carId) => appDBContent.Car.FirstOrDefault(p => p.id == carId);
         
     }

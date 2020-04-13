@@ -1,0 +1,17 @@
+﻿@model UserViewModel
+
+<div class="container bg-white p-2 text-center">
+    <h1 class="text-xl">
+
+        @{
+            var us = Model.UserInfo.Name;
+            <div>
+
+                        <p>Добро пожаловать, @us</p>
+            </div>
+
+        }
+    </h1>
+    <a asp-action="Edit" asp-controller="Account" value="Редактиовать" class="btn btn-outline-dark">Редактировать</a>
+    <a asp-action="Logout" asp-controller="Account" value="Выход" class="btn btn-outline-dark">Выход</a>
+</div>

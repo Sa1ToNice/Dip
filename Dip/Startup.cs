@@ -7,6 +7,7 @@ using Dip.Data.Interfaces;
 using Dip.Data.Mocks;
 using Dip.Data.Models;
 using Dip.Data.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,12 +39,28 @@ namespace Dip
             services.AddTransient<IAllCars, CarRepository>();
             services.AddTransient<ICarsCategory, CategoryRepository>();
             services.AddTransient<IAllOrders, OrdersRepository>();
+            services.AddTransient<IInfo, InfoRepository>();
+            services.AddTransient<IUser, UserRepository>();
+
+
+
+            // установка конфигурации подключения
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+            services.AddControllersWithViews();
+
+
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShopCart.GetCart(sp));
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+           
 
 
         }
@@ -57,6 +74,9 @@ namespace Dip
 
             app.UseSession();
             //app.UseMvcWithDefaultRoute();
+
+            app.UseAuthentication();    // аутентификация
+            app.UseAuthorization();     // авторизация
 
             app.UseMvc(routes =>
             {

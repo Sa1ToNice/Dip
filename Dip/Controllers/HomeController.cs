@@ -1,5 +1,6 @@
 ﻿using Dip.Data.Interfaces;
 using Dip.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Dip.Controllers
     public class HomeController : Controller
     {
         private IAllCars _carRep;
+        
        
 
         public HomeController(IAllCars carRep)
@@ -19,21 +21,25 @@ namespace Dip.Controllers
            
         }
 
+        
         public ViewResult Index()
         {
-            var homeCars = new HomeViewModel 
-            { fawCars = _carRep.getFawCars
-            };
+            var homeCars = new HomeViewModel
+            { fawCars = _carRep.getFawCars };
             ViewBag.Title = "Главная страница";
             return View(homeCars);
-        }
 
+        }
+        
         public ViewResult About()
         {
             
             ViewBag.Title = "О нас";
+           
             return View();
         }
+
+
 
     }
 }
