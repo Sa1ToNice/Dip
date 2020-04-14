@@ -50,12 +50,14 @@ namespace Dip.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.Title = "Авторизация";
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
+            ViewBag.Title = "Авторизация";
             if (ModelState.IsValid)
             {
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
@@ -65,7 +67,7 @@ namespace Dip.Controllers
  
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Некорректные Email и(или) пароль");
+                ModelState.AddModelError("", "Данный Email уже используется");
             }
             
             return View(model);
@@ -73,12 +75,14 @@ namespace Dip.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Title = "Регистрация";
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
+            ViewBag.Title = "Регистрация";
             if (ModelState.IsValid)
             {
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
@@ -93,7 +97,7 @@ namespace Dip.Controllers
                     return RedirectToAction("About", "Account");
                 }
                 else
-                    ModelState.AddModelError("", "Некорректные Email, Имя и(или) пароль");
+                    ModelState.AddModelError("", "Данный Email уже используется");
             }
             return View(model);
         }
@@ -118,21 +122,38 @@ namespace Dip.Controllers
         }
 
 
+        [Authorize]
         [HttpGet]
-        public IActionResult Edit()
+        public  IActionResult Edit()
         {
-            return View();
+            
+
+            User user = _user.GetUser(User.Identity.Name);
+
+
+
+            var us = new UserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password
+            };
+            ViewBag.Title = "Редактирование профиля";
+            return View(us);
+            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(RegisterModel model)
+        public async Task<IActionResult> Edit(UserViewModel model)
         {
+            ViewBag.Title = "Редактирование профиля";
+            User courseToUpdate = await db.Users.FirstOrDefaultAsync(c => c.Id == model.Id);
+
             if (ModelState.IsValid)
             {
-
-
-                User courseToUpdate = await db.Users.FirstOrDefaultAsync(c => c.Email == User.Identity.Name.ToString());
+                
 
                 if (model.Email == courseToUpdate.Email)
                 {
@@ -168,41 +189,25 @@ namespace Dip.Controllers
                         return RedirectToAction("About", "Account");
                     }
                     else
-                        ModelState.AddModelError("", "Некорректные Email, Имя и(или) пароль");
+                        ModelState.AddModelError("", "Данный Email уже используется");
                 }
+                return View(model);
             }
+            model.Name = courseToUpdate.Name;
+            model.Email = courseToUpdate.Email;
+            model.Password = courseToUpdate.Password;
             return View(model);
         }
             
            
        
         
-            ////db.Users.Update(user);
-            //await db.SaveChangesAsync();
-            ////await Logout();
-            ////await Authenticate(courseToUpdate.Email);
-            //return View(courseToUpdate);
-
+           
 
 
        
 
-        public async Task<IActionResult> Details()
-        {
-            if (User.Identity.Name == null)
-            {
-                return NotFound();
-            }
-
-            var course = await db.Users.AsNoTracking().FirstOrDefaultAsync(m => m.Email == User.Identity.Name);
-                               
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return View(course);
-        }
+       
 
 
 

@@ -4,14 +4,17 @@
     <h1 class="text-xl">
 
         @{
-            var us = Model.UserInfo.Name;
+            var us = Model.UserInfo;
             <div>
 
-                        <p>Добро пожаловать, @us</p>
+                        <p>Добро пожаловать, @us.Name</p>
+                        <p>Ваш Email: @us.Email</p>
+
             </div>
 
         }
     </h1>
+
     <a asp-action="Edit" asp-controller="Account" value="Редактиовать" class="btn btn-outline-dark">Редактировать</a>
     <a asp-action="Logout" asp-controller="Account" value="Выход" class="btn btn-outline-dark">Выход</a>
 </div>
