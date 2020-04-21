@@ -1,0 +1,45 @@
+﻿@model ApiaryViewModel
+
+
+    <div class="container bg-white p-2">
+        <nav class="breadcrumb  bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+            <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+            <span class="breadcrumb-item active">Add</span>
+        </nav>
+
+        <div class="three"> <h1 class="text-xl-center">Добавление пасеки</h1></div>
+
+        <h1></h1>
+
+
+        <form asp-action="Add" asp-controller="Apiary" asp-anti-forgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+
+
+                <div class="form-group ">
+                    <label asp-for="Name"><b>Введите Название</b></label>
+                    <br />
+                    <input type="text" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Map"><b>Введите Местоположение</b></label>
+                    <br />
+                    <input type="text" asp-for="Map" />
+                    <span asp-validation-for="Map" class="text-danger"></span>
+                </div>
+
+
+                <br />
+                <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+                <a asp-action="" asp-controller="Apiary" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+
+            </div>
+        </form>
+        <br />
+        <br />
+        <br />
+
+    </div>

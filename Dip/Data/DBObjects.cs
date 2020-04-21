@@ -36,9 +36,9 @@ namespace Dip.Data
                 content.AddRange(
 
 
-                        new Info { name = "Инф1", desc = "Текст1", img = "/img/1.jpg" },
-                        new Info { name = "Инф2", desc = "Текст2", img = "/img/1.jpg" },
-                        new Info { name = "Инф3", desc = "Текст3", img = "/img/1.jpg" }
+                        new Info { Name = "Инф1", Desc = "Текст1" },
+                        new Info { Name = "Инф2", Desc = "Текст2" },
+                        new Info { Name = "Инф3", Desc = "Текст3" }
 
 
                     );

@@ -17,7 +17,7 @@ namespace Dip.Data.Repository
         }
 
         public IEnumerable<Info> AllInf => appDBContent.Info;
-        public IEnumerable<Info> SomeInf (string sea) => appDBContent.Info.Where(p => p.desc.ToLower().Contains(sea.ToLower()) || p.name.ToLower().Contains(sea.ToLower()));
-        public Info getInfo(string name) => appDBContent.Info.FirstOrDefault(p => p.name == name);
+        public IEnumerable<Info> SomeInf (string sea) => appDBContent.Info.Where(p => p.Desc.ToLower().Contains(sea.ToLower()) || p.Name.ToLower().Contains(sea.ToLower()));
+        public Info getInfo(string name) => appDBContent.Info.FirstOrDefault(p => p.Name == name);
     }
 }

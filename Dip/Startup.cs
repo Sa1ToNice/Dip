@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,8 @@ namespace Dip
             services.AddTransient<IAllOrders, OrdersRepository>();
             services.AddTransient<IInfo, InfoRepository>();
             services.AddTransient<IUser, UserRepository>();
-
+            services.AddTransient<IApiary, ApiaryRepository>();
+            services.AddTransient<IHive, HiveRepository>();
 
 
             // установка конфигурации подключения

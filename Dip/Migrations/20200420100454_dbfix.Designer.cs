@@ -4,14 +4,16 @@ using Dip.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dip.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    partial class AppDBContentModelSnapshot : ModelSnapshot
+    [Migration("20200420100454_dbfix")]
+    partial class dbfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,32 +95,6 @@ namespace Dip.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.Hive", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ApiaryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApiaryId");
-
-                    b.ToTable("Hives");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.Info", b =>
@@ -254,13 +230,6 @@ namespace Dip.Migrations
                         .HasForeignKey("categoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.Hive", b =>
-                {
-                    b.HasOne("Dip.Data.Models.Apiary", "Apiary")
-                        .WithMany()
-                        .HasForeignKey("ApiaryId");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.OrderDetail", b =>

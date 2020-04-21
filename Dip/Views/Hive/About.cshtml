@@ -1,0 +1,47 @@
+﻿@model HiveViewModel
+
+    <div class="container bg-white p-2">
+        <nav class="breadcrumb bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+            <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+            <a class="breadcrumb-item" href="/Apiary/HiveView/@Model.Aid">Hive</a>
+            <span class="breadcrumb-item active">About</span>
+        </nav>
+
+
+
+        <div class="three"> <h1 class="text-xl-center">Информация об улье</h1></div>
+
+        <br />
+
+
+        <form asp-action="About" asp-controller="Hive" asp-anti-forgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="text-center">
+
+               
+                <div class="form-group ">
+                    <h3 asp-for="Name"><b>Название: @Model.Name</b></h3>
+                    <br />
+
+                </div>
+               
+                <div class="form-group ">
+                    <h3 asp-for="Name"><b>Описание</b></h3>
+                    <br />
+                    <p>@Model.Desc</p>
+                </div>
+
+
+                <br />
+                <br />
+
+                <a asp-action="HiveView" asp-controller="Apiary"  asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+                <br />
+                <br />
+                <br />
+            </div>
+        </form>
+
+
+    </div>

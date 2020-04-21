@@ -32,10 +32,11 @@ namespace Dip.Controllers
         {
             User user = _user.GetUser(User.Identity.Name);
 
+            IEnumerable<Apiary> api = db.Apiaries.Where(i => i.User.Email.Equals(User.Identity.Name)).OrderBy(i => i.Id);
 
-            
             var us = new UserViewModel
-            { UserInfo = user };
+            { UserInfo = user,
+            Apiaries = api};
             ViewBag.Title = "Личный кабинет";
             return View(us);
 
@@ -65,9 +66,9 @@ namespace Dip.Controllers
                 {
                     await Authenticate(model.Email); // аутентификация
  
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("About", "Account");
                 }
-                ModelState.AddModelError("", "Данный Email уже используется");
+                ModelState.AddModelError("", "Неверный Email и(или) пароль");
             }
             
             return View(model);

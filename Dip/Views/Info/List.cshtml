@@ -3,9 +3,20 @@
 
 
 
-<div class="container bg-white p-2">
+    <div class="container bg-white p-2">
+        <nav class="breadcrumb bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+            <a class="breadcrumb-item" href="/Info/List">Info</a>
 
-        <h1>@Model.oneInf.name</h1>
-        <div>@Model.oneInf.desc</div>
+            <span class="breadcrumb-item active">@Model.oneInf.Name</span>
+        </nav>
 
-</div>
+
+        <div class="three"> <h1 class="text-xl-center">@Model.oneInf.Name</h1></div>
+
+        <h1></h1>
+        <p>@Model.oneInf.Desc</p>
+        <br />
+        <br />
+        <br />
+    </div>

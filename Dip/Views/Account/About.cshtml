@@ -1,20 +1,56 @@
 ﻿@model UserViewModel
 
-<div class="container bg-white p-2 text-center">
-    <h1 class="text-xl">
+    <div class="container bg-white p-2 text-center">
+        <nav class="breadcrumb bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+            <span class="breadcrumb-item active">Account</span>
+        </nav>
 
-        @{
-            var us = Model.UserInfo;
-            <div>
+        <div class="three"> <h1 class="text-xl-center">Добро пожаловать, @Model.UserInfo.Name</h1></div>
 
-                        <p>Добро пожаловать, @us.Name</p>
-                        <p>Ваш Email: @us.Email</p>
+        <br />
+        <h3>Ваш Email: @Model.UserInfo.Email</h3>
+        <br />
+        <h4>Список пасек</h4>
 
-            </div>
 
-        }
-    </h1>
+        @if (!Model.Apiaries.Any())
+            {
+              <h5 class="text text-center">Список пуст</h5>
+            }
+          else 
+          { 
 
-    <a asp-action="Edit" asp-controller="Account" value="Редактиовать" class="btn btn-outline-dark">Редактировать</a>
-    <a asp-action="Logout" asp-controller="Account" value="Выход" class="btn btn-outline-dark">Выход</a>
-</div>
+                <div class="row">
+                    <div class="col-3">
+
+
+                    </div>
+                  
+                    <div class="col-6">
+
+                        <div class="rounded">
+
+                            @foreach (var inf in Model.Apiaries)
+                            {
+                                <a href="/Apiary/About/@inf.Id">
+                                    <b>@inf.Name</b>
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+                    
+
+                </div>
+           }
+            <br />
+            <br />
+
+            <a asp-action="Edit" asp-controller="Account" value="Редактировать профиль" class="btn btn-outline-dark">Редактировать профиль</a>
+            <a asp-action="Logout" asp-controller="Account" value="Выход" class="btn btn-outline-dark">Выход</a>
+            <br />
+            <br />
+            <br />
+
+    </div>

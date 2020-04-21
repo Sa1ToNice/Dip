@@ -1,44 +1,55 @@
 ﻿@model RegisterModel
 
-    <div class="container bg-white p-2">
+    <div class="container bg-white p-2 ">
 
-        <h1>Регистрация</h1>
+        <nav class="breadcrumb bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+
+
+            <span class="breadcrumb-item active">Register</span>
+        </nav>
+
+
+        <div class="three"> <h1 class="text-xl-center">Регистрация</h1></div>
+
         <h1></h1>
-        <div class="row">
-            <div class="col-md-6">
-                <form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div>
-                        <div class="form-group ">
-                            <label asp-for="Name">Введите Имя</label>
-                            <br />
-                            <input type="text" asp-for="Name" />
-                            <span asp-validation-for="Name" class="text-danger" ></span>
-                        </div>
-                        <div class="form-group ">
-                            <label asp-for="Email">Введите Email</label>
-                            <br />
-                            <input type="text" asp-for="Email" />
-                            <span asp-validation-for="Email" class="text-danger" ></span>
-                        </div>
-                        <div class="form-group ">
-                            <label asp-for="Password">Введите пароль</label>
-                            <br />
-                            <input asp-for="Password" />
-                            <span asp-validation-for="Password" class="text-danger" ></span>
-                        </div>
-                        <div class="form-group ">
-                            <label asp-for="ConfirmPassword">Повторите пароль</label>
-                            <br />
-                            <input asp-for="ConfirmPassword" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger" ></span>
-                        </div>
-                        
-                         <br>
-                         <input type="submit" value="Регистрация" class="btn btn-outline-dark" />
-                        
-                    </div>
-                </form>
+
+
+        <form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <div class="form-group ">
+                    <label asp-for="Name"><b>Введите Имя</b></label>
+                    <br />
+                    <input type="text" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Email"><b>Введите Email</b></label>
+                    <br />
+                    <input type="text" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Password"><b>Введите пароль</b></label>
+                    <br />
+                    <input asp-for="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="ConfirmPassword"><b>Повторите пароль</b></label>
+                    <br />
+                    <input asp-for="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <br>
+                <input type="submit" value="Регистрация" class="btn btn-outline-dark" />
+
             </div>
-        </div>
+        </form>
+
+        <br />
+        <br />
+        <br />
     </div>

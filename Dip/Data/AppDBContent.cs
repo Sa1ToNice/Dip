@@ -19,7 +19,8 @@ namespace Dip.Data
         public DbSet<OrderDetail> OrderDetail { get; set; }
         public DbSet<Info> Info { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Apiary> Apiaries { get; set; }
+        public DbSet<Hive> Hives { get; set; }
 
 
     }

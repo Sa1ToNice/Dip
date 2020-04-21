@@ -3,22 +3,30 @@
 
     <div class="container bg-white p-2">
 
-        <h1>Справочник</h1>
-        <div class="list-group">
+        <nav class="breadcrumb bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+            <a class="breadcrumb-item" href="/Info/List">Info</a>
+
+            <span class="breadcrumb-item active">Search</span>
+        </nav>
+
+        <div class="three"> <h1 class="text-xl-center">Справочник</h1></div>
+        <h1></h1>
+        <div class="rounded">
 
             @if (!Model.getInf.Any())
             {
-                <p>Результатов "Поиска" не найдено</p>
+                <p><b>Результатов "Поиска" не найдено</b></p>
             }
             else
             {
                 foreach (var inf in Model.getInf)
                 {
 
-                    <a href="List/@inf.name" class="list-group-item list-group-item-action">
+                    <a href="List/@inf.Name" class="list-group-item list-group-item-action">
 
 
-                        @inf.name
+                        @inf.Name
 
                     </a>
                 }
@@ -27,7 +35,9 @@
 
 
         </div>
-
+        <br />
+        <br />
+        <br />
     </div>
 
    

@@ -1,0 +1,71 @@
+﻿@model ApiaryViewModel
+
+
+<div class="container bg-white p-2">
+    <nav class="breadcrumb bg-white">
+        <a class="breadcrumb-item" href="/Home">Home</a>
+        <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+        <span class="breadcrumb-item active">About</span>
+    </nav>
+
+
+
+    <div class="three"> <h1 class="text-xl-center">Информация о пасеке</h1></div>
+
+    <br />
+
+
+    <form asp-action="About" asp-controller="Apiary" asp-anti-forgery="true">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="text-center">
+
+            <div class="form-group ">
+                <h3 asp-for="Id"><b>ID пасеки: @Model.Id</b></h3>
+                <br />
+
+
+
+            </div>
+            <div class="form-group ">
+                <h3 asp-for="Name"><b>Название: @Model.Name</b></h3>
+                <br />
+
+            </div>
+
+            @if (Model.Map != null && Model.Map.Contains("https://www.google.com/maps/embed"))
+            {
+        
+                   
+                    
+                        <h3 asp-for="Map"><b>Местоположение</b></h3>
+                        <br />
+
+                        <div class="btn btn-lg btn-dark" style="width:530px;height:330px;">
+
+                            <iframe src="@Model.Map" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+                        </div>
+
+
+               
+        
+            }
+            else
+            {
+                <h3 asp-for="Map"><b>Местоположение</b></h3>
+                <br />
+                <h4 asp-for="Map"><b>Не указано</b></h4>
+            }
+
+            <br />
+            <br />
+
+            <a asp-action="" asp-controller="Apiary" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+            <br />
+            <br />
+            <br />
+        </div>
+    </form>
+
+
+</div>

@@ -4,14 +4,16 @@ using Dip.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dip.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    partial class AppDBContentModelSnapshot : ModelSnapshot
+    [Migration("20200420110401_apiar5")]
+    partial class apiar5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,9 +116,14 @@ namespace Dip.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApiaryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Hives");
                 });
@@ -261,6 +268,10 @@ namespace Dip.Migrations
                     b.HasOne("Dip.Data.Models.Apiary", "Apiary")
                         .WithMany()
                         .HasForeignKey("ApiaryId");
+
+                    b.HasOne("Dip.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.OrderDetail", b =>

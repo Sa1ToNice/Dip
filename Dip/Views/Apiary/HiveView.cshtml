@@ -1,0 +1,128 @@
+﻿@model ApiaryViewModel
+
+
+<div class="container bg-white p-2">
+    <nav class="breadcrumb bg-white">
+        <a class="breadcrumb-item" href="/Home">Home</a>
+        <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+        <span class="breadcrumb-item active">Hive</span>
+    </nav>
+
+
+
+    <div class="three"> <h1 class="text-xl-center">Пасека @Model.Name</h1></div>
+
+    <br />
+
+
+    <form asp-action="HiveView" asp-controller="Apiary" asp-anti-forgery="true">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
+
+
+
+            <div class="row text-right">
+
+
+                @if (!Model.Hives.Any())
+                {
+
+                }
+                else
+                {
+                    foreach (Hive ap in Model.Hives)
+                    {
+
+
+                        <div class="col-auto p-4 text-right">
+                            <div class="btn btn-warning text-center">
+                                <br />
+                                <h6>@ap.Name</h6>
+                                
+                                <img class="rounded d-block p-2 text-center" src="@ap.Img" alt="@ap.Name" width="150" height="100" />
+
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-dark " asp-action="About" asp-controller="Hive" value="Ульи" asp-route-id="@ap.Id" asp-route-aid="@Model.Id">Открыть</a>
+                                    <button type="button" class="btn btn-sm btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        
+                                        <a class="dropdown-item" asp-action="Edit" asp-controller="Apiary" value="Редактиовать" asp-route-id="@ap.Id">Редактировать</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" asp-action="Delete" asp-controller="Apiary" value="Удалить" asp-route-id="@ap.Id">Удалить</a>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                }
+
+                <div class="col-auto p-4 text-center">
+                    <div class="btn btn-sm btn-dark text-center">
+                        <h4>Добавьте улей</h4>
+
+
+                        <a class="btn btn btn-outline-light " asp-action="Add" asp-controller="Hive" asp-route-aid="@Model.Id" value="Добавить">Добавить</a>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+                <div class="text-center">
+
+                    <br />
+
+
+
+
+                    @if (Model.Map != null && Model.Map.Contains("https://www.google.com/maps/embed"))
+                    {
+
+                        <h3 asp-for="Map"><b>Местоположение</b></h3>
+                        <br />
+
+                        <div class="btn btn-lg btn-dark" style="width:530px;height:330px;">
+
+                            <iframe src="@Model.Map" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        <h3 asp-for="Map"><b>Местоположение</b></h3>
+                        <br />
+                        <h4 asp-for="Map"><b>Не указано</b></h4>
+                    }
+
+                    <br />
+                    <br />
+
+                    <a asp-action="" asp-controller="Apiary" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+                    <br />
+                    <br />
+                    <br />
+
+
+                </div>
+
+        
+</form>
+
+
+</div>
