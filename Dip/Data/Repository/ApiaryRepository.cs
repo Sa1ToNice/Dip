@@ -21,7 +21,7 @@ namespace Dip.Data.Repository
         public IEnumerable<Apiary> Apiaries => appDBContent.Apiaries.Include(c => c.User);
 
        
-        public Apiary GetApId(int id) => appDBContent.Apiaries.FirstOrDefault(p => p.Id == id);
+       
 
     }
 }

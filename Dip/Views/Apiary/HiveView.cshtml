@@ -12,117 +12,288 @@
 
     <div class="three"> <h1 class="text-xl-center">Пасека @Model.Name</h1></div>
 
-    <br />
+    <br /><hr />
 
 
     <form asp-action="HiveView" asp-controller="Apiary" asp-anti-forgery="true">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        
 
 
+        <h3 class="text-center"><b>Список ульев</b></h3><br />
 
-            <div class="row text-right">
+        <div class="row text-center">
 
 
-                @if (!Model.Hives.Any())
+            @if (!Model.Hives.Any())
+            {
+
+            }
+            else
+            {
+                foreach (Hive ap in Model.Hives)
                 {
+                    String fix = "fix";
 
-                }
-                else
-                {
-                    foreach (Hive ap in Model.Hives)
-                    {
+                    <div class="col-auto p-4">
+                        <div class="btn btn-warning text-center">
+                            <br />
+                            <h6>@ap.Name</h6>
 
+                            <img class="rounded d-block p-2 text-center" src="@ap.Img" alt="@ap.Name" width="150" height="100" />
 
-                        <div class="col-auto p-4 text-right">
-                            <div class="btn btn-warning text-center">
-                                <br />
-                                <h6>@ap.Name</h6>
-                                
-                                <img class="rounded d-block p-2 text-center" src="@ap.Img" alt="@ap.Name" width="150" height="100" />
+                            <div class="btn-group">
+                                <a type="button" class="btn btn-sm btn-outline-dark " asp-action="About" asp-controller="Hive" value="Ульи" asp-route-id="@ap.Id" asp-route-aid="@Model.Id">Открыть</a>
+                                <button type="button" class="btn btn-sm btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
 
-                                <div class="btn-group">
-                                    <a type="button" class="btn btn-sm btn-outline-dark " asp-action="About" asp-controller="Hive" value="Ульи" asp-route-id="@ap.Id" asp-route-aid="@Model.Id">Открыть</a>
-                                    <button type="button" class="btn btn-sm btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span class="sr-only">Toggle Dropdown</span>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Honey" value="Сбор меда" asp-route-aid="@Model.Id" asp-route-hid="@ap.Id">Сбор меда</a>
+                                    <div class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item" asp-action="Edit" asp-controller="Hive" value="Редактировать" asp-route-id="@ap.Id" asp-route-aid="@Model.Id">Редактировать</a>
+                                    <div class="dropdown-divider"></div>
+
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#@fix@ap.Name@ap.Id">
+                                        УДАЛИТЬ
                                     </button>
-                                    <div class="dropdown-menu">
-                                        
-                                        <a class="dropdown-item" asp-action="Edit" asp-controller="Apiary" value="Редактиовать" asp-route-id="@ap.Id">Редактировать</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" asp-action="Delete" asp-controller="Apiary" value="Удалить" asp-route-id="@ap.Id">Удалить</a>
 
 
-                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
-
-
-                    }
-                }
-
-                <div class="col-auto p-4 text-center">
-                    <div class="btn btn-sm btn-dark text-center">
-                        <h4>Добавьте улей</h4>
-
-
-                        <a class="btn btn btn-outline-light " asp-action="Add" asp-controller="Hive" asp-route-aid="@Model.Id" value="Добавить">Добавить</a>
-
-
                     </div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade text-left" id="@fix@ap.Name@ap.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Удаление улья</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Подтвердите удаление
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                    <a asp-action="Delete" asp-controller="Hive" value="Удалить" class="btn btn-warning" asp-route-id="@ap.Id" asp-route-aid="@Model.Id">Удалить</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+            <div class="col-auto p-4 text-center">
+                <div class="btn btn-sm btn-dark text-center">
+                    <h4>Добавить улей</h4>
+
+
+                    <a class="btn btn btn-outline-light " asp-action="Add" asp-controller="Hive" asp-route-aid="@Model.Id" value="Добавить">Добавить</a>
+
+
                 </div>
-
-
-
             </div>
 
 
 
+        </div>
+        <br /><hr />
+
+              <div class="text-center">
+
+
+                  <h3><b>Список событий</b></h3>
+                  <br />
+                  <a class="btn btn-sm btn-dark text-center " asp-action="Add" asp-controller="Event" asp-route-aid="@Model.Id" value="Добавить">Добавить Событие</a>
+                  <br />
+                  <br />
+
+
+
+                  @if (Model.VEvents.Any())
+                  {
+
+
+                      <table class="table text-left">
+                          <thead class="thead-dark">
+                              <tr>
+
+                                  <th scope="col">
+                                      <a asp-action="HiveView" asp-route-sortOrder="@ViewData["DateSortParm"]" class="text-warning">
+
+
+                                          @if (ViewData["DateSortParm"].ToString() == "Desc")
+                                          {<text>Дата ▲</text>}
+                                          else
+                                          {
+                                            <text>Дата ▼</text>
+                                          }
+                                      </a>
+                                      
+                                  </th>
+                                  <th scope="col" class=" text-center">Улей</th>
+                                  <th scope="col" class=" text-center">Событие</th>
+                                  <th scope="col" class=" text-center">Действия</th>
+
+                              </tr>
+                          </thead>
+                      </table>
+
+                      <div class="list-group text-left" id="acc">
+
+                          @foreach (var ev in Model.VEvents)
+                          {
+                              String fix = "fixx";
+
+
+
+                              <div class="row">
+                                  <div class="col-9">
+
+                                      <button class="list-group-item list-group-item-action" type="button" data-toggle="collapse" data-target="#@fix@ev.Name@ev.Id" aria-expanded="false" aria-controls="colap" data-parent="#acc">
+                                          <div class="row">
+                                              <div class="col">
+                                                  <b> @ev.Date.ToShortDateString()</b>
+                                              </div>
+                                              <div class="col">
+                                                  @ev.Hive.Name
+                                              </div>
+                                              <div class="col">
+                                                  @ev.Name
+                                              </div>
+
+                                          </div>
+
+
+                                      </button>
+
+                                      <div class="collapse" id="@fix@ev.Name@ev.Id">
+                                          <div class="card card-body">
+                                              @ev.Desc
+                                          </div>
+                                      </div>
+                                      <hr />
+                                  </div>
+
+                                  <div class="col-3">
 
 
 
 
-                <div class="text-center">
 
-                    <br />
+                                      @if (ev.Date >= DateTime.Today)
+                                      {
+                                          <a asp-action="Edit" asp-controller="Event" value="Изменить" class="btn btn-sm btn-outline-dark" asp-route-id="@ev.Id" asp-route-aid="@Model.Id" asp-route-hid="@ev.Hive.Id">Изменить</a>
+                                          <text> | </text>
+                                      }
+
+                                      <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#@fix@ev.Name@ev.Id@ev.Name">
+                                          Удалить
+                                      </button>
+
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="@fix@ev.Name@ev.Id@ev.Name" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-dialog-centered" role="document">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">Удаление события</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      Подтвердите удаление
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                                      <a asp-action="Delete" asp-controller="Event" value="Удалить" class="btn btn-warning" asp-route-id="@ev.Id" asp-route-aid="@Model.Id" asp-route-hid="@ev.Hive.Id">Удалить</a>
+
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+
+
+                                  </div>
+                                  
+
+                              </div>
+
+
+                              
+
+
+
+                          }
+
+
+
+                      </div>
+
+                  }
+                  else
+                  {
+                      <br /><hr />
+                  }
+
+              </div>
 
 
 
 
-                    @if (Model.Map != null && Model.Map.Contains("https://www.google.com/maps/embed"))
-                    {
+        <div class="text-center">
 
-                        <h3 asp-for="Map"><b>Местоположение</b></h3>
-                        <br />
+            <br /><hr />
 
-                        <div class="btn btn-lg btn-dark" style="width:530px;height:330px;">
 
-                            <iframe src="@Model.Map" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
-                        </div>
 
-                    }
-                    else
-                    {
-                        <h3 asp-for="Map"><b>Местоположение</b></h3>
-                        <br />
-                        <h4 asp-for="Map"><b>Не указано</b></h4>
-                    }
+            @if (Model.Map != null && Model.Map.Contains("https://www.google.com/maps/embed"))
+            {
 
-                    <br />
-                    <br />
+                <h3 asp-for="Map"><b>Местоположение</b></h3>
+                <br />
+                <div class="row-cols-1">
+                    <div class="btn btn-lg btn-dark" style="width:100%;height:100%;">
 
-                    <a asp-action="" asp-controller="Apiary" value="Завершить" class="btn btn-outline-dark">Завершить</a>
-                    <br />
-                    <br />
-                    <br />
+                        <iframe src="@Model.Map" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
+                    </div>
 
                 </div>
+               
 
-        
-</form>
+            }
+            else
+            {
+                <h3 asp-for="Map"><b>Местоположение</b></h3>
+                <br />
+                <label asp-for="Map">Не указано</label>
+            }
+
+            <br /><hr />
+            <br />
+
+            <a asp-action="" asp-controller="Apiary" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+            <br />
+            <br />
+            <br />
+
+
+        </div>
+
+
+    </form>
 
 
 </div>

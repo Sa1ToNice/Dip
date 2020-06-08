@@ -12,6 +12,7 @@ namespace Dip.Data.Models
 
         
         public string Name { set; get; }
+        public string Desc { set; get; }
 
         public string Map { set; get; }
 

@@ -8,6 +8,6 @@ namespace Dip.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<Car> fawCars { get; set; }
+        
     }
 }

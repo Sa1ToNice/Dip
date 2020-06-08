@@ -18,13 +18,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
 
-                <div class="form-group ">
-                    <label asp-for="Id"><b>ID пользователя (Не редактируется)</b></label>
-                    <br />
-                    <input type="text" asp-for="Id" value="@Model.Id" readonly />
+               
+                    <input type="text" asp-for="Id" value="@Model.Id" style="visibility: hidden"/>
 
 
-                </div>
+                
                 <div class="form-group ">
                     <label asp-for="Name"><b>Введите Имя</b></label>
                     <br />

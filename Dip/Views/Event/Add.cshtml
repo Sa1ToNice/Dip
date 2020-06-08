@@ -1,0 +1,77 @@
+﻿@model EventViewModel
+
+
+<div class="container bg-white p-2">
+    <nav class="breadcrumb  bg-white">
+        <a class="breadcrumb-item" href="/Home">Home</a>
+        <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+        <a class="breadcrumb-item" href="/Apiary/HiveView/@Model.Aid">Hive</a>
+        <span class="breadcrumb-item active">Add</span>
+    </nav>
+
+    <div class="three"> <h1 class="text-xl-center">Добавление события</h1></div>
+
+    <h1></h1>
+
+
+    <form asp-action="Add" asp-controller="Event" asp-anti-forgery="true">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div>
+
+            <input asp-for="Aid" value="@Model.Aid" style="visibility: hidden" />
+            
+
+
+
+
+            <div class="form-group ">
+                <label asp-for="HiveName"><b>Выберите улей</b></label>
+                <br />
+
+                <select class="form-control" asp-for="HiveName">
+                    <option> </option>
+                    @foreach (var ev in Model.Hives)
+                    {
+                        <option>@ev.Name</option>
+                    }
+
+                </select>
+                <span asp-validation-for="HiveName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group ">
+                <label asp-for="Name"><b>Введите Название</b></label>
+                <br />
+                <input type="text" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Date"><b>Выберите Дату</b></label>
+                <br />
+                <input type="date" asp-for="Date" value="" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group ">
+                <label asp-for="Desc"><b>Введите Описание</b></label>
+                <br />
+                <textarea class="form-control" rows="3" type="text" asp-for="Desc"></textarea>
+                <span asp-validation-for="Desc" class="text-danger"></span>
+            </div>
+
+
+            <br />
+            <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+            <a asp-action="HiveView" asp-controller="Apiary" asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+
+        </div>
+    </form>
+    <br />
+    <br />
+    <br />
+
+</div>

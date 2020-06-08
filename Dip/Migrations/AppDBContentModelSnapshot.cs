@@ -26,6 +26,9 @@ namespace Dip.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Map")
                         .HasColumnType("nvarchar(max)");
 
@@ -42,57 +45,30 @@ namespace Dip.Migrations
                     b.ToTable("Apiaries");
                 });
 
-            modelBuilder.Entity("Dip.Data.Models.Car", b =>
+            modelBuilder.Entity("Dip.Data.Models.Event", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("available")
-                        .HasColumnType("bit");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("categoryId")
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HiveId")
                         .HasColumnType("int");
 
-                    b.Property<string>("desc")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("favorite")
-                        .HasColumnType("bit");
+                    b.HasKey("Id");
 
-                    b.Property<string>("img")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("HiveId");
 
-                    b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("price")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("categoryId");
-
-                    b.ToTable("Car");
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.Category", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("categoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Category");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.Hive", b =>
@@ -105,20 +81,97 @@ namespace Dip.Migrations
                     b.Property<int?>("ApiaryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DatePods")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Frame")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Heal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Heal1")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal2")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal3")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal4")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal5")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal6")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal7")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal8")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Heal9")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Hframe")
+                        .HasColumnType("int");
 
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Matka")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Plod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Porod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prois")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Wframe")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApiaryId");
 
                     b.ToTable("Hives");
+                });
+
+            modelBuilder.Entity("Dip.Data.Models.Honey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Get")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("HiveId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HiveId");
+
+                    b.ToTable("Honey");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.Info", b =>
@@ -137,86 +190,6 @@ namespace Dip.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Info");
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.Order", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("adress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.Property<DateTime>("orderTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("surname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.OrderDetail", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("carID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("orderID")
-                        .HasColumnType("int");
-
-                    b.Property<long>("price")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("carID");
-
-                    b.HasIndex("orderID");
-
-                    b.ToTable("OrderDetail");
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.ShopCartItem", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ShopCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("carid")
-                        .HasColumnType("int");
-
-                    b.Property<long>("price")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("carid");
-
-                    b.ToTable("ShopCartItem");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.User", b =>
@@ -247,13 +220,11 @@ namespace Dip.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Dip.Data.Models.Car", b =>
+            modelBuilder.Entity("Dip.Data.Models.Event", b =>
                 {
-                    b.HasOne("Dip.Data.Models.Category", "Category")
-                        .WithMany("Cars")
-                        .HasForeignKey("categoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Dip.Data.Models.Hive", "Hive")
+                        .WithMany()
+                        .HasForeignKey("HiveId");
                 });
 
             modelBuilder.Entity("Dip.Data.Models.Hive", b =>
@@ -263,26 +234,11 @@ namespace Dip.Migrations
                         .HasForeignKey("ApiaryId");
                 });
 
-            modelBuilder.Entity("Dip.Data.Models.OrderDetail", b =>
+            modelBuilder.Entity("Dip.Data.Models.Honey", b =>
                 {
-                    b.HasOne("Dip.Data.Models.Car", "car")
+                    b.HasOne("Dip.Data.Models.Hive", "Hive")
                         .WithMany()
-                        .HasForeignKey("carID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dip.Data.Models.Order", "order")
-                        .WithMany("orderDetails")
-                        .HasForeignKey("orderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.ShopCartItem", b =>
-                {
-                    b.HasOne("Dip.Data.Models.Car", "car")
-                        .WithMany()
-                        .HasForeignKey("carid");
+                        .HasForeignKey("HiveId");
                 });
 #pragma warning restore 612, 618
         }

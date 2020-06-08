@@ -10,6 +10,6 @@ namespace Dip.Data.Interfaces
     {
         IEnumerable<Apiary> Apiaries { get; }
       
-        public Apiary GetApId(int id);
+       
     }
 }

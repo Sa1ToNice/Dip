@@ -13,22 +13,22 @@ namespace Dip.Data
         public static void initial(AppDBContent content)
         {
            
-            if (!content.Category.Any())
-                content.Category.AddRange(Categories.Select(c => c.Value));
+            //if (!content.Category.Any())
+            //    content.Category.AddRange(Categories.Select(c => c.Value));
 
-            if (!content.Car.Any())
-            {
-                content.AddRange(
+            //if (!content.Car.Any())
+            //{
+            //    content.AddRange(
 
 
-                        new Car { name = "Tesla", desc = "lol", img = "/img/1.jpg", price = 50000, favorite = true, available = true, Category = Categories["Электро"] },
-                        new Car { name = "Benz", desc = "kek", img = "/img/1.jpg", price = 30000, favorite = true, available = true, Category = Categories["Бенз"] },
-                        new Car { name = "Tesla", desc = "lol", img = "/img/1.jpg", price = 50000, favorite = true, available = true, Category = Categories["Электро"] },
-                        new Car { name = "Benz", desc = "kek", img = "/img/1.jpg", price = 30000, favorite = true, available = true, Category = Categories["Бенз"] },
-                        new Car { name = "Tesla", desc = "lol", img = "/img/1.jpg", price = 50000, favorite = true, available = true, Category = Categories["Электро"] },
-                        new Car { name = "Benz", desc = "kek", img = "/img/1.jpg", price = 30000, favorite = true, available = true, Category = Categories["Бенз"] }
-                    );
-            }
+            //            new Car { name = "Tesla", desc = "lol", img = "/img/1.jpg", price = 50000, favorite = true, available = true, Category = Categories["Электро"] },
+            //            new Car { name = "Benz", desc = "kek", img = "/img/1.jpg", price = 30000, favorite = true, available = true, Category = Categories["Бенз"] },
+            //            new Car { name = "Tesla", desc = "lol", img = "/img/1.jpg", price = 50000, favorite = true, available = true, Category = Categories["Электро"] },
+            //            new Car { name = "Benz", desc = "kek", img = "/img/1.jpg", price = 30000, favorite = true, available = true, Category = Categories["Бенз"] },
+            //            new Car { name = "Tesla", desc = "lol", img = "/img/1.jpg", price = 50000, favorite = true, available = true, Category = Categories["Электро"] },
+            //            new Car { name = "Benz", desc = "kek", img = "/img/1.jpg", price = 30000, favorite = true, available = true, Category = Categories["Бенз"] }
+            //        );
+            //}
 
 
             if (!content.Info.Any())
@@ -47,31 +47,31 @@ namespace Dip.Data
             content.SaveChanges();
         }
 
-        private static Dictionary<string, Category> category;
-        public static Dictionary<string, Category> Categories
-        {
-            get
-            {
-                if(category == null)
-                {
-                    var list = new Category[]
-                    {
-                        new Category {categoryName = "Электро", desc = "ЭЛЕКТРО"},
-                        new Category {categoryName = "Бенз", desc = "БЕНЗ"}
-                    };
+        //private static Dictionary<string, Category> category;
+        //public static Dictionary<string, Category> Categories
+        //{
+        //    get
+        //    {
+        //        if(category == null)
+        //        {
+        //            var list = new Category[]
+        //            {
+        //                new Category {categoryName = "Электро", desc = "ЭЛЕКТРО"},
+        //                new Category {categoryName = "Бенз", desc = "БЕНЗ"}
+        //            };
 
-                    category = new Dictionary<string, Category>();
+        //            category = new Dictionary<string, Category>();
 
-                    foreach(Category el in list)
-                    {
-                        category.Add(el.categoryName, el);
-                    }
+        //            foreach(Category el in list)
+        //            {
+        //                category.Add(el.categoryName, el);
+        //            }
 
-                }
+        //        }
                 
-                return category;
+        //        return category;
 
-            }
-        }
+        //    }
+        //}
     }
 }

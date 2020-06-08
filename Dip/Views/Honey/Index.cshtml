@@ -1,0 +1,91 @@
+﻿@model HoneyViewModel
+    <div class="container bg-white p-2">
+        <nav class="breadcrumb bg-white">
+            <a class="breadcrumb-item" href="/Home">Home</a>
+            <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+            <a class="breadcrumb-item" href="/Apiary/HiveView/@Model.Aid">Hives</a>
+            <span class="breadcrumb-item active">Honey</span>
+        </nav>
+
+
+
+        <div class="three"> <h1 class="text-xl-center">Сбор меда: @Model.HiveName</h1></div>
+        
+
+        <br /><hr />
+
+              <form asp-action="Index" asp-controller="Honey" asp-anti-forgery="true">
+                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  <input asp-for="Aid" value="@Model.Aid" style="visibility: hidden" />
+                  <input asp-for="Hid" value="@Model.Hid" style="visibility: hidden" />
+
+                  <div class="text-center">
+
+                      <div class="form-group">
+                          <label asp-for="Date"><b>Выберите Дату</b></label>
+                          <br />
+                          <input type="date" asp-for="Date" value="" />
+                          <span asp-validation-for="Date" class="text-danger"></span>
+                      </div>
+
+                      <div class="form-group">
+                          <label asp-for="Get"><b>Собрано меда(кг)</b></label>
+                          <br />
+                          <input class="w-25" type="text" asp-for="Get" value="" />
+                          <span asp-validation-for="Get" class="text-danger"></span>
+                      </div>
+                      <input type="submit" value="Добавить" class="btn btn-outline-dark" />
+                  </div>
+
+                  <br /><hr />
+
+                        <div class="text-center">
+
+
+                            <h3><b>Журнал сбора меда</b></h3>
+                            <br />
+                            <label>
+                                <b>
+                                    Собрано всего(кг):
+                                    @{double a = 0;
+                                        foreach (var h in Model.Honeys)
+                                        {
+                                            a = a + h.Get;
+                                        }
+                                        <lable>@a</lable>
+                                    }
+
+                                </b>
+                            </label>
+                            <br /><br />
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+
+                                        <th>Дата</th>
+                                        <th>Количество меда(кг)</th>
+                                        <th>Удаление</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var hon in Model.Honeys)
+                                    {
+                                        <tr>
+
+                                            <td><b>@hon.Date</b></td>
+                                            <td>@hon.Get</td>
+                                            <td><a asp-action="Delete" asp-controller="Honey" value="Удалить" class="btn btn-sm btn-outline-danger" asp-route-id="@hon.Id" asp-route-aid="@Model.Aid" asp-route-hid="@Model.Hid">Удалить</a></td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            <br /><hr />
+                            <a asp-action="HiveView" asp-controller="Apiary" asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+
+                        </div>
+                  
+                  <br /><br /><br />
+              </form>
+    </div>

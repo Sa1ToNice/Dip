@@ -29,8 +29,8 @@ namespace Dip.Controllers
         public IActionResult About(int id, int aId)
         {
             ViewBag.Title = "Информация об улье";
-           
-            Hive hiv = _hive.Hives.FirstOrDefault(i => i.Id == id);
+            IEnumerable<Hive> hive = db.Hives.Where(i => i.Apiary.Id == aId && i.Apiary.User.Email == User.Identity.Name.ToString()).OrderBy(i => i.Id);
+            Hive hiv = hive.FirstOrDefault(i => i.Id == id);
             if (hiv == null)
             { return RedirectToAction("HiveView", "Apiary", new { id = aId }); }
             else
@@ -40,7 +40,25 @@ namespace Dip.Controllers
                     Id = hiv.Id,                 
                     Name = hiv.Name,
                     Aid = aId,
-                    Desc = hiv.Desc
+                    Desc = hiv.Desc,
+                    Frame = hiv.Frame,
+                    Wframe = hiv.Wframe,
+                    Hframe = hiv.Hframe,
+                    Porod = hiv.Porod,
+                    Heal = hiv.Heal,
+                    Heal1 = hiv.Heal1,
+                    Heal2 = hiv.Heal2,
+                    Heal3 = hiv.Heal3,
+                    Heal4 = hiv.Heal4,
+                    Heal5 = hiv.Heal5,
+                    Heal6 = hiv.Heal6,
+                    Heal7 = hiv.Heal7,
+                    Heal8 = hiv.Heal8,
+                    Heal9 = hiv.Heal9,
+                    Matka = hiv.Matka,
+                    DatePods = hiv.DatePods,
+                    Plod = hiv.Plod,
+                    Prois = hiv.Prois
                 };
                 return View(ap);
             }
@@ -53,14 +71,25 @@ namespace Dip.Controllers
         public IActionResult Add(int aId)
         {
             ViewBag.Title = "Добавление улья";
-            var ap = new HiveViewModel
+            IEnumerable<Apiary> ap = db.Apiaries.Where(i => i.Id == aId && i.User.Email == User.Identity.Name.ToString()).OrderBy(i => i.Id);
+            Apiary app = ap.FirstOrDefault(i => i.Id == aId);
+            if (app == null)
             {
+                return RedirectToAction("HiveView", "Apiary", new { id = aId });
+            }
+            else
+            {
+                var ap1 = new HiveViewModel
+                {
                 
               
-                Aid = aId,
+                 Aid = aId,
                 
-            };
-            return View(ap);
+                };
+             return View(ap1);
+            }
+
+          
 
            
 
@@ -81,13 +110,32 @@ namespace Dip.Controllers
                 if (hiv == null)
                 {
                     Apiary courseToUpdate = await db.Apiaries.FirstOrDefaultAsync(c => c.Id == hiveViewModel.Aid);
-                    db.Hives.Add(new Hive { Name = hiveViewModel.Name, Desc = hiveViewModel.Desc, Apiary = courseToUpdate, Img= "/img/улей.png" });
+                    db.Hives.Add(new Hive { Name = hiveViewModel.Name, Desc = hiveViewModel.Desc, Apiary = courseToUpdate, Img= "/img/улей.png",
+                        Frame = hiveViewModel.Frame,
+                        Wframe = hiveViewModel.Wframe,
+                        Hframe = hiveViewModel.Hframe,
+                        Porod = hiveViewModel.Porod,
+                        Heal = hiveViewModel.Heal,
+                        Heal1 = hiveViewModel.Heal1,
+                        Heal2 = hiveViewModel.Heal2,
+                        Heal3 = hiveViewModel.Heal3,
+                        Heal4 = hiveViewModel.Heal4,
+                        Heal5 = hiveViewModel.Heal5,
+                        Heal6 = hiveViewModel.Heal6,
+                        Heal7 = hiveViewModel.Heal7,
+                        Heal8 = hiveViewModel.Heal8,
+                        Heal9= hiveViewModel.Heal9,
+                        Matka = hiveViewModel.Matka,
+                        DatePods = hiveViewModel.DatePods,
+                        Plod = hiveViewModel.Plod,
+                        Prois = hiveViewModel.Prois
+                    });
                     await db.SaveChangesAsync();
                     return RedirectToAction("HiveView", "Apiary", new {id = hiveViewModel.Aid });
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Данное Навзвание уже используется");
+                    ModelState.AddModelError("", "Данное Название уже используется");
                     return View(hiveViewModel);
                 }
 
@@ -103,23 +151,49 @@ namespace Dip.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Edit(int id, int aid)
+        public IActionResult Edit(int id, int aId)
         {
             ViewBag.Title = "Редактирование улья";
-            IEnumerable<Hive> api = _hive.Hives.Where(i => i.Apiary.Id == aid).OrderBy(i => i.Id);
+            IEnumerable<Apiary> ap = db.Apiaries.Where(i => i.Id == aId && i.User.Email == User.Identity.Name.ToString()).OrderBy(i => i.Id);
+            Apiary app = ap.FirstOrDefault(i => i.Id == aId);
+            if (app == null)
+            {
+                return RedirectToAction("HiveView", "Apiary", new { id = aId });
+            }
+            
+
+            IEnumerable<Hive> api = _hive.Hives.Where(i => i.Apiary.Id == aId).OrderBy(i => i.Id);
             Hive hive = api.FirstOrDefault(i => i.Id == id);
             if (hive == null)
-            { return RedirectToAction("HiveView", "Apiary", new { id = aid }); }
+            { return RedirectToAction("HiveView", "Apiary", new { id = aId }); }
             else
             {
-                var ap = new HiveViewModel
+                var hv = new HiveViewModel
                 {
                     Id = hive.Id,
                     Name = hive.Name,
                     Desc = hive.Desc,
-                    Aid = aid
+                    Aid = aId,
+                    Frame = hive.Frame,
+                    Hframe = hive.Hframe,
+                    Wframe = hive.Wframe,
+                    Porod = hive.Porod,
+                    Heal = hive.Heal,
+                    Heal1 = hive.Heal1,
+                    Heal2 = hive.Heal2,
+                    Heal3 = hive.Heal3,
+                    Heal4 = hive.Heal4,
+                    Heal5 = hive.Heal5,
+                    Heal6 = hive.Heal6,
+                    Heal7 = hive.Heal7,
+                    Heal8 = hive.Heal8,
+                    Heal9 = hive.Heal9,
+                    Matka = hive.Matka,
+                    DatePods = hive.DatePods,
+                    Plod = hive.Plod,
+                    Prois = hive.Prois
                 };
-                return View(ap);
+                return View(hv);
             }
 
 
@@ -140,12 +214,32 @@ namespace Dip.Controllers
 
                 if (hive == null)
                 {
-                   // hive = _hive.Hives.FirstOrDefault(i => i.Id == hiveViewModel.Id);
+                    hive = _hive.Hives.FirstOrDefault(i => i.Id == hiveViewModel.Id);
                     hive.Name = hiveViewModel.Name;
                     hive.Desc = hiveViewModel.Desc;
-                    
+                    hive.Frame = hiveViewModel.Frame;
+                    hive.Wframe = hiveViewModel.Wframe;
+                    hive.Hframe = hiveViewModel.Hframe;
+                    hive.Porod = hiveViewModel.Porod;
+                    hive.Heal = hiveViewModel.Heal;
+                    hive.Heal1 = hiveViewModel.Heal1;
+                    hive.Heal2 = hiveViewModel.Heal2;
+                    hive.Heal3 = hiveViewModel.Heal3;
+                    hive.Heal4 = hiveViewModel.Heal4;
+                    hive.Heal5 = hiveViewModel.Heal5;
+                    hive.Heal6 = hiveViewModel.Heal6;
+                    hive.Heal7 = hiveViewModel.Heal7;
+                    hive.Heal8 = hiveViewModel.Heal8;
+                    hive.Heal9 = hiveViewModel.Heal9;
+                    hive.Matka = hiveViewModel.Matka;
+                    hive.DatePods = hiveViewModel.DatePods;
+                    hive.Plod = hiveViewModel.Plod;
+                    hive.Prois = hiveViewModel.Prois;
 
-                    await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c=> c.Desc);
+
+
+                    await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc, c => c.Frame, c => c.Hframe, c => c.Wframe, c => c.Porod, c => c.Heal, c => c.Heal1, c => c.Heal2,
+                        c => c.Heal3, c => c.Heal4, c => c.Heal5, c => c.Heal6, c => c.Heal6, c => c.Heal7, c => c.Heal8, c => c.Heal9, c => c.Matka, c => c.DatePods, c => c.Plod, c => c.Prois);
                     await db.SaveChangesAsync();
                     return RedirectToAction("HiveView", "Apiary", new { id = hiveViewModel.Aid });
 
@@ -157,8 +251,27 @@ namespace Dip.Controllers
                     {
                         hive.Name = hiveViewModel.Name;
                         hive.Desc = hiveViewModel.Desc;
+                        hive.Frame = hiveViewModel.Frame;
+                        hive.Wframe = hiveViewModel.Wframe;
+                        hive.Hframe = hiveViewModel.Hframe;
+                        hive.Porod = hiveViewModel.Porod;
+                        hive.Heal = hiveViewModel.Heal;
+                        hive.Heal1 = hiveViewModel.Heal1;
+                        hive.Heal2 = hiveViewModel.Heal2;
+                        hive.Heal3 = hiveViewModel.Heal3;
+                        hive.Heal4 = hiveViewModel.Heal4;
+                        hive.Heal5 = hiveViewModel.Heal5;
+                        hive.Heal6 = hiveViewModel.Heal6;
+                        hive.Heal7 = hiveViewModel.Heal7;
+                        hive.Heal8 = hiveViewModel.Heal8;
+                        hive.Heal9 = hiveViewModel.Heal9;
+                        hive.Matka = hiveViewModel.Matka;
+                        hive.DatePods = hiveViewModel.DatePods;
+                        hive.Plod = hiveViewModel.Plod;
+                        hive.Prois = hiveViewModel.Prois;
 
-                        await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc);
+                        await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc, c => c.Frame, c => c.Hframe, c => c.Wframe, c => c.Porod, c => c.Heal, c => c.Heal1, c => c.Heal2,
+                        c => c.Heal3, c => c.Heal4, c => c.Heal5, c => c.Heal6, c => c.Heal6, c => c.Heal7, c => c.Heal8, c => c.Heal9, c => c.Matka, c => c.DatePods, c => c.Plod, c => c.Prois);
                         await db.SaveChangesAsync();
                         return RedirectToAction("HiveView", "Apiary", new { id = hiveViewModel.Aid });
 
@@ -166,7 +279,7 @@ namespace Dip.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Данное Навзвание уже используется");
+                        ModelState.AddModelError("", "Данное Название уже используется");
                         return View(hiveViewModel);
                     }
 
@@ -176,6 +289,36 @@ namespace Dip.Controllers
             {
                 return View(hiveViewModel);
             }
+        }
+
+
+        [Authorize]
+        public async Task<IActionResult> Delete(int id, int aId)
+        {
+         
+            IEnumerable<Hive> hive = db.Hives.Where(i => i.Apiary.Id == aId && i.Apiary.User.Email.Equals(User.Identity.Name)).OrderBy(i => i.Id);
+            Hive hiv = hive.FirstOrDefault(i => i.Id == id);
+            
+            if (hiv == null)
+            {
+                return RedirectToAction("HiveView", "Apiary", new { id = aId });
+            }
+
+            IEnumerable<Event> eve = db.Events.Where(i => i.Hive.Id == id).OrderBy(i => i.Id);
+            foreach (Event var in eve)
+            {
+                db.Events.Remove(var);
+            }
+
+            IEnumerable<Honey> hon = db.Honey.Where(i => i.Hive.Id == id).OrderBy(i => i.Id);
+            foreach (Honey dhon in hon)
+            {
+                db.Honey.Remove(dhon);
+            }
+
+            db.Hives.Remove(hiv);
+            await db.SaveChangesAsync();
+            return RedirectToAction("HiveView", "Apiary", new { id = aId });
         }
 
 

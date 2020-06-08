@@ -35,20 +35,20 @@
                     </li>
 
                     @*<li class="nav-item">
-                    <a class="nav-link" href="/ShopCart/">Корзина</a>
-                </li>
+                            <a class="nav-link" href="/ShopCart/">Корзина</a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/Cars/List">Все товары</a>
-                </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Cars/List">Все товары</a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/Cars/List/tesla">Электро</a>
-                </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Cars/List/tesla">Электро</a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/Cars/List/benz">Бенз</a>
-                </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Cars/List/benz">Бенз</a>
+                        </li>*@
 
 
 
@@ -64,22 +64,22 @@
 
 
                     @*<li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a>
-                </li>*@
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a>
+                        </li>*@
 
                     @if (User.Identity.IsAuthenticated)
                     {
 
-                                <li class="nav-item">
+                        <li class="nav-item">
 
-                                    <a class="nav-link text-warning" href="/Account/About">Привет, @User.Identity.Name</a>
-                                </li>
-                                <li class="nav-item">
+                            <a class="nav-link text-warning" href="/Account/About">Привет, @User.Identity.Name</a>
+                        </li>
+                        <li class="nav-item">
 
-                                    <a asp-action="Logout" asp-controller="Account" value="Выход" class="btn btn-outline-danger btn-sm">Выход</a>
-                                </li>
-                          
-                     }
+                            <a asp-action="Logout" asp-controller="Account" value="Выход" class="btn btn-outline-danger btn-sm">Выход</a>
+                        </li>
+
+                    }
                     else
                     {
                         <li class="nav-item">
@@ -88,19 +88,24 @@
                     }
 
                 </ul>
-                            <form class="form-inline mt-2 mt-md-0" asp-controller="Info" asp-action="Search" method="get">
+                <form class="form-inline mt-2 mt-md-0" asp-controller="Info" asp-action="Search" method="get">
 
-                                <input class="form-control mr-sm-2" type="text" placeholder="Поиск" aria-label="sea" name="sea">
-                                <button class="btn btn-outline-warning my-2 my-sm-0 btn-sm" type="submit">Поиск</button>
-                            </form>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Поиск" aria-label="sea" name="sea">
+                    <button class="btn btn-outline-warning my-2 my-sm-0 btn-sm" type="submit">Поиск</button>
+                </form>
             </div>
         </nav>
     </header>
 
+    
+            @RenderBody()
+     
+    
 
 
 
-    @RenderBody()
+
+
 
 
     <!-- Footer -->
@@ -110,17 +115,17 @@
             <div class="col-6">
 
                 <p class=" text text-center">© 2020 Copyright Александр Лыков </p>
-                
+
             </div>
             <div class="col-6">
 
-                <p class="text text-center"><a href="#"> Вернуться к началу </a> </p>
-                
+                <p class="text text-center"><a class="text-warning" href="#"> Вернуться к началу </a> </p>
+
             </div>
 
         </div>
-        
-        
+
+
         <!-- Copyright -->
     </footer>
     <!-- Footer -->

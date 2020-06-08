@@ -19,24 +19,145 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="text-center">
 
-               
+
                 <div class="form-group ">
-                    <h3 asp-for="Name"><b>Название: @Model.Name</b></h3>
-                    <br />
+                    <h3 asp-for="Name"><b>Название</b></h3>
+                    <label>@Model.Name</label>
+                    <br /><hr />
 
                 </div>
-               
+
                 <div class="form-group ">
                     <h3 asp-for="Name"><b>Описание</b></h3>
-                    <br />
+
                     <p>@Model.Desc</p>
+                    <br />
+                    <hr />
+                </div>
+
+                <div class="form-group ">
+                    <h3 asp-for="Frame"><b>Количество рамок</b></h3>
+
+                    <p>@Model.Frame</p>
+                    <br />
+                    <hr />
+                </div>
+
+                <div class="form-group ">
+                    <h3 asp-for="Wframe"><b>Ширина рамок(мм)</b></h3>
+
+                    <p>@Model.Wframe</p>
+                    <br />
+                    <hr />
+                </div>
+
+                <div class="form-group ">
+                    <h3 asp-for="Hframe"><b>Высота рамок(мм)</b></h3>
+
+                    <p>@Model.Hframe</p>
+                    <br />
+                    <hr />
+                </div>
+
+                <div class="form-group ">
+                    <h3 asp-for="Name"><b>Порода</b></h3>
+                    <label>@Model.Porod</label>
+                    <br /><hr />
+
+                </div>
+
+                <div class="form-group ">
+                    <h3 asp-for="Name"><b>Болезни</b></h3>
+                    @if (Model.Heal1)
+                    {
+                        <label>Акарапидоз</label><br />
+
+                    }
+                    @if (Model.Heal2)
+                    {
+                        <label>Амебиаз</label><br />
+
+                    }
+                    @if (Model.Heal3)
+                    {
+                        <label>Американский гнилец</label><br />
+
+                    }
+                    @if (Model.Heal4)
+                    {
+                        <label>Аскофероз</label><br />
+
+                    }
+                    @if (Model.Heal5)
+                    {
+                        <label>Аспергиллёз</label><br />
+
+                    }
+                    @if (Model.Heal6)
+                    {
+                        <label>Варроатоз</label><br />
+
+                    }
+                    @if (Model.Heal7)
+                    {
+                        <label>Европейский гнилец</label><br />
+
+                    }
+                    @if (Model.Heal8)
+                    {
+                        <label>Мешотчатый расплод</label><br />
+
+                    }
+                    @if (Model.Heal9)
+                    {
+                        <label>Нозематоз</label><br />
+
+                    }
+                    @if (Model.Heal != null)
+                    {
+                        <label>@Model.Heal</label><br /><br />
+
+                    }
+                    <hr />
+
+                    @if (Model.Matka)
+                    {
+                        <h3><b>Матка</b></h3><br />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4><b>Плодность</b></h4>
+                                <label>@Model.Plod </label><br />
+                            </div>
+                            <div class="col-md-4">
+                                <h4><b>Происхождение</b></h4>
+                                <label>@Model.Prois </label><br />
+                            </div>
+                            <div class="col-md-4">
+                                <h4><b>Дата подсадки</b></h4>
+                                <label>@Model.DatePods.ToString("dd.MM.yyyy") </label><br />
+                            </div>
+
+
+
+
+                        </div>
+                        <br /><hr />
+
+                    }
+
+
+
+
+
+
                 </div>
 
 
+
                 <br />
                 <br />
 
-                <a asp-action="HiveView" asp-controller="Apiary"  asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+                <a asp-action="HiveView" asp-controller="Apiary" asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
                 <br />
                 <br />
                 <br />

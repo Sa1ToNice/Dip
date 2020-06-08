@@ -21,10 +21,50 @@ namespace Dip.ViewModels
         [StringLength(15)]
         [Display(Name = "Название")]
         public string Name { get; set; }
-
         
         [Display(Name = "Описание")]
         public string Desc { get; set; }
+        [Display(Name = "Количетво рамок")]
+        public int Frame { get; set; }
+        [Display(Name = "Ширина рамок")]
+        public int Wframe { get; set; }
+        [Display(Name = "Высота рамок")]
+        public int Hframe { get; set; }
+
+
+
+        [Display(Name = "Порода")]
+        public string Porod { get; set; }
+        [Display(Name = "Другие отклонения")]
+        public string Heal { get; set; }
+        [Display(Name = "Акарапидоз")]
+        public bool Heal1 { get; set; }
+        [Display(Name = "Амебиаз")]
+        public bool Heal2 { get; set; }
+        [Display(Name = "Американский гнилец")]
+        public bool Heal3 { get; set; }
+        [Display(Name = "Аскофероз")]
+        public bool Heal4 { get; set; }
+        [Display(Name = "Аспергиллёз")]
+        public bool Heal5 { get; set; }
+        [Display(Name = "Варроатоз")]
+        public bool Heal6 { get; set; }
+        [Display(Name = "Европейский гнилец")]
+        public bool Heal7 { get; set; }
+        [Display(Name = "Мешотчатый расплод")]
+        public bool Heal8 { get; set; }
+        [Display(Name = "Нозематоз")]
+        public bool Heal9 { get; set; }
+        [Display(Name = "Матка")]
+        public bool Matka { get; set; }
+        [Display(Name = "Дата подсадки")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime DatePods { get; set; }
+        [Display(Name = "Плодность")]
+        public string Plod { get; set; }
+        [Display(Name = "Происхождение")]
+        public string Prois { get; set; }
 
 
     }

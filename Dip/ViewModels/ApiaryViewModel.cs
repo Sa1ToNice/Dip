@@ -14,6 +14,10 @@ namespace Dip.ViewModels
 
         public IEnumerable<Hive> Hives { get; set; }
 
+        public IEnumerable<Event> VEvents { get; set; }
+
+        
+
 
         [Display(Name = "Id")]
         public int Id { get; set; }
@@ -22,7 +26,12 @@ namespace Dip.ViewModels
         [StringLength(15)]
         [Display(Name = "Название")]
         public string Name { get; set; }
+        
+       
+        [Display(Name = "Описание")]
+        public string Desc { get; set; }
 
+        [Display(Name = "Местоположение")]
         public string Map { get; set; }
     }
 }

@@ -33,11 +33,7 @@ namespace Dip.Controllers
         {
             ViewBag.Title = "Пасечное хозяйство";
 
-
-
             IEnumerable<Apiary> api = _apiary.Apiaries.Where(i => i.User.Email.Equals(User.Identity.Name)).OrderBy(i => i.Id);
-
-
 
             var apObj = new ApiaryViewModel
             {
@@ -61,19 +57,41 @@ namespace Dip.Controllers
                 {
                     Id = apiar.Id,
                     Map = apiar.Map,
-                    Name = apiar.Name
+                    Name = apiar.Name,
+                    Desc = apiar.Desc
                 };
                 return View(ap);
             }
-
-
         }
+
+
         [Authorize]
-        public IActionResult HiveView(int id)
+        public IActionResult HiveView(int id, string sortOrder)
         {
             ViewBag.Title = "Информация о пасеке";
+            
+            ViewData["DateSortParm"] = sortOrder == "Asc" ? "Desc" : "Asc";
+            
+            
+
             IEnumerable<Apiary> api = _apiary.Apiaries.Where(i => i.User.Email.Equals(User.Identity.Name)).OrderBy(i => i.Id);
             IEnumerable<Hive> hives = db.Hives.Where(u =>  u.Apiary.Id == id);
+            IEnumerable<Event> ev = db.Events.Where(u => u.Hive.Apiary.Id == id).OrderByDescending(i => i.Date);
+            switch (sortOrder)
+            {
+                
+                case "Asc":
+                    ev = ev.OrderBy(s => s.Date);
+                    break;
+                
+                default:
+                    ev = ev.OrderByDescending(s => s.Date);
+                    break;
+            }
+
+
+
+
             Apiary apiar = api.FirstOrDefault(i => i.Id == id);
             if (apiar == null)
             { return RedirectToAction("", "Apiary"); }
@@ -84,24 +102,47 @@ namespace Dip.Controllers
                     Id = apiar.Id,
                     Map = apiar.Map,
                     Name = apiar.Name,
-                    Hives = hives
+                    Hives = hives,
+                    VEvents = ev,
+
                     
                 };
                 return View(ap);
             }
-
-
         }
+
 
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            Apiary apiar = _apiary.GetApId(id);
+            IEnumerable<Apiary> api = _apiary.Apiaries.Where(i => i.User.Email.Equals(User.Identity.Name)).OrderBy(i => i.Id);
+            Apiary apiar = api.FirstOrDefault(i => i.Id == id);
+            if (apiar == null)
+            {
+                return RedirectToAction("", "Apiary");
+            }
+
+            IEnumerable<Event> eve = db.Events.Where(i => i.Hive.Apiary.Id == id).OrderBy(i => i.Id);
+            foreach (Event var in eve)
+            {
+                db.Events.Remove(var);
+            }
+
+            IEnumerable<Honey> hon = db.Honey.Where(i => i.Hive.Apiary.Id == id).OrderBy(i => i.Id);
+            foreach (Honey dhon in hon)
+            {
+                db.Honey.Remove(dhon);
+            }
+
+            IEnumerable<Hive> hive = db.Hives.Where(i => i.Apiary.Id == id).OrderBy(i => i.Id);
+            foreach (Hive var in hive)
+            {
+                db.Hives.Remove(var);
+            }
+
             db.Apiaries.Remove(apiar);
             await db.SaveChangesAsync();
             return RedirectToAction("", "Apiary");
- 
-
         }
 
 
@@ -121,9 +162,7 @@ namespace Dip.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ApiaryViewModel apiaryViewModel)
         {
-            
 
-            
 
             if (ModelState.IsValid)
             {   IEnumerable<Apiary> api = _apiary.Apiaries.Where(i => i.User.Email.Equals(User.Identity.Name)).OrderBy(i => i.Id);
@@ -134,26 +173,21 @@ namespace Dip.Controllers
                 if (apia == null)
                 {
                     User courseToUpdate = await db.Users.FirstOrDefaultAsync(c => c.Email == User.Identity.Name.ToString());
-                    db.Apiaries.Add(new Apiary { Name = apiaryViewModel.Name, Map = apiaryViewModel.Map, User = courseToUpdate});
+                    db.Apiaries.Add(new Apiary { Name = apiaryViewModel.Name, Map = apiaryViewModel.Map, Desc = apiaryViewModel.Desc, User = courseToUpdate});
                     await db.SaveChangesAsync();
                     return RedirectToAction("", "Apiary");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Данное Навзвание уже используется");
+                    ModelState.AddModelError("", "Данное Название уже используется");
                     return View(apiaryViewModel);
                 }
-
-
-
-                
 
             }
             else
             {
                 return View(apiaryViewModel);
             }
-
 
         }
 
@@ -174,7 +208,8 @@ namespace Dip.Controllers
                 {
                     Id = apiar.Id,
                     Map = apiar.Map,
-                    Name = apiar.Name
+                    Name = apiar.Name,
+                    Desc = apiar.Desc
                 };
                 return View(ap);
             }
@@ -200,8 +235,9 @@ namespace Dip.Controllers
                     apiar = _apiary.Apiaries.FirstOrDefault(i => i.Id == apiaryViewModel.Id);
                     apiar.Name = apiaryViewModel.Name;
                     apiar.Map = apiaryViewModel.Map;
+                    apiar.Desc = apiaryViewModel.Desc;
 
-                    await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name);
+                    await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name, c => c.Map, c => c.Desc);
                     await db.SaveChangesAsync();
                     return RedirectToAction("", "Apiary");
 
@@ -213,8 +249,9 @@ namespace Dip.Controllers
                     {
                         apiar.Name = apiaryViewModel.Name;
                         apiar.Map = apiaryViewModel.Map;
+                        apiar.Desc = apiaryViewModel.Desc;
 
-                        await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name);
+                        await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name, c => c.Map, c => c.Desc);
                         await db.SaveChangesAsync();
                         return RedirectToAction("", "Apiary");
 
@@ -222,7 +259,7 @@ namespace Dip.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Данное Навзвание уже используется");
+                        ModelState.AddModelError("", "Данное Название уже используется");
                         return View(apiaryViewModel);
                     }
                     

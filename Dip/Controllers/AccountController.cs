@@ -199,18 +199,6 @@ namespace Dip.Controllers
             model.Password = courseToUpdate.Password;
             return View(model);
         }
-            
-           
-       
-        
-           
-
-
-       
-
-       
-
-
 
     }
 }

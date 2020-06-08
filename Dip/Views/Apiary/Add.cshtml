@@ -25,12 +25,19 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group ">
+                    <label asp-for="Desc"><b>Введите Описание</b></label>
+                    <br />
+                    <textarea class="form-control" rows="3" type="text" asp-for="Desc"></textarea>
+                    <span asp-validation-for="Desc" class="text-danger"></span>
+                </div>
+
+                <div class="form-group ">
                     <label asp-for="Map"><b>Введите Местоположение</b></label>
                     <br />
                     <input type="text" asp-for="Map" />
                     <span asp-validation-for="Map" class="text-danger"></span>
                 </div>
-
+                
 
                 <br />
                 <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
