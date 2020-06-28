@@ -4,14 +4,16 @@ using Dip.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dip.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    partial class AppDBContentModelSnapshot : ModelSnapshot
+    [Migration("20200614224150_hon1")]
+    partial class hon1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,9 +89,6 @@ namespace Dip.Migrations
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Force")
-                        .HasColumnType("int");
-
                     b.Property<int>("Frame")
                         .HasColumnType("int");
 
@@ -128,9 +127,6 @@ namespace Dip.Migrations
 
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Mass")
-                        .HasColumnType("float");
 
                     b.Property<bool>("Matka")
                         .HasColumnType("bit");
@@ -201,44 +197,6 @@ namespace Dip.Migrations
                     b.ToTable("Info");
                 });
 
-            modelBuilder.Entity("Dip.Data.Models.Inspect", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DatePods")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Force")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Frame")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HiveId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Mass")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("Matka")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Plod")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HiveId");
-
-                    b.ToTable("Inspects");
-                });
-
             modelBuilder.Entity("Dip.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -282,13 +240,6 @@ namespace Dip.Migrations
                 });
 
             modelBuilder.Entity("Dip.Data.Models.Honey", b =>
-                {
-                    b.HasOne("Dip.Data.Models.Hive", "Hive")
-                        .WithMany()
-                        .HasForeignKey("HiveId");
-                });
-
-            modelBuilder.Entity("Dip.Data.Models.Inspect", b =>
                 {
                     b.HasOne("Dip.Data.Models.Hive", "Hive")
                         .WithMany()

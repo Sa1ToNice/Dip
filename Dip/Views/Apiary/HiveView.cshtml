@@ -48,13 +48,16 @@
                                 </button>
                                 <div class="dropdown-menu">
 
-                                    <a class="dropdown-item" asp-action="Index" asp-controller="Honey" value="Сбор меда" asp-route-aid="@Model.Id" asp-route-hid="@ap.Id">Сбор меда</a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Honey" value="Сбор продуктов" asp-route-aid="@Model.Id" asp-route-hid="@ap.Id">Сбор продуктов</a>
+                                    <div class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Inspect" value="Статистика" asp-route-aid="@Model.Id" asp-route-hid="@ap.Id">Статистика</a>
                                     <div class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" asp-action="Edit" asp-controller="Hive" value="Редактировать" asp-route-id="@ap.Id" asp-route-aid="@Model.Id">Редактировать</a>
                                     <div class="dropdown-divider"></div>
 
-                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#@fix@ap.Name@ap.Id">
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#@fix@ap.Id">
                                         УДАЛИТЬ
                                     </button>
 
@@ -68,7 +71,7 @@
 
 
                     <!-- Modal -->
-                    <div class="modal fade text-left" id="@fix@ap.Name@ap.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="@fix@ap.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -159,7 +162,7 @@
                               <div class="row">
                                   <div class="col-9">
 
-                                      <button class="list-group-item list-group-item-action" type="button" data-toggle="collapse" data-target="#@fix@ev.Name@ev.Id" aria-expanded="false" aria-controls="colap" data-parent="#acc">
+                                      <button class="list-group-item list-group-item-action" type="button" data-toggle="collapse" data-target="#@fix@ev.Id@fix@ev.Id" aria-expanded="false" aria-controls="colap" data-parent="#acc">
                                           <div class="row">
                                               <div class="col">
                                                   <b> @ev.Date.ToShortDateString()</b>
@@ -176,7 +179,7 @@
 
                                       </button>
 
-                                      <div class="collapse" id="@fix@ev.Name@ev.Id">
+                                      <div class="collapse" id="@fix@ev.Id@fix@ev.Id">
                                           <div class="card card-body">
                                               @ev.Desc
                                           </div>
@@ -196,12 +199,12 @@
                                           <text> | </text>
                                       }
 
-                                      <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#@fix@ev.Name@ev.Id@ev.Name">
+                                      <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#@fix@ev.Id@ev.Id">
                                           Удалить
                                       </button>
 
                                       <!-- Modal -->
-                                      <div class="modal fade" id="@fix@ev.Name@ev.Id@ev.Name" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal fade" id="@fix@ev.Id@ev.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-dialog-centered" role="document">
                                               <div class="modal-content">
                                                   <div class="modal-header">

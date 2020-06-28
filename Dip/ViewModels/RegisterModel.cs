@@ -8,15 +8,18 @@ namespace Dip.ViewModels
 {
     public class RegisterModel
     {
-        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
+         ErrorMessage = "Некорректное Имя")]
+        [StringLength(20, ErrorMessage = "Недопустимая длина")]
         [Required(ErrorMessage = "Не указано Имя")]
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
-        [StringLength(30)]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный Email")]
+        [StringLength(30, ErrorMessage = "Недопустимая длина")]
         [Required(ErrorMessage = "Не указан Email")]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректный Email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

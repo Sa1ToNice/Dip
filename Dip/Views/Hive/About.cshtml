@@ -36,6 +36,22 @@
                 </div>
 
                 <div class="form-group ">
+                    <h3 asp-for="Force"><b>Сила семьи</b></h3>
+
+                    <p>@Model.Force</p>
+                    <br />
+                    <hr />
+                </div>
+
+                <div class="form-group ">
+                    <h3 asp-for="Mass"><b>Масса улья (кг)</b></h3>
+
+                    <p>@Model.Mass</p>
+                    <br />
+                    <hr />
+                </div>
+
+                <div class="form-group ">
                     <h3 asp-for="Frame"><b>Количество рамок</b></h3>
 
                     <p>@Model.Frame</p>
@@ -134,7 +150,7 @@
                             </div>
                             <div class="col-md-4">
                                 <h4><b>Дата подсадки</b></h4>
-                                <label>@Model.DatePods.ToString("dd.MM.yyyy") </label><br />
+                                <label>@Model.DatePods.ToShortDateString() </label><br />
                             </div>
 
 

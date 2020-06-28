@@ -19,6 +19,7 @@ namespace Dip.Data
         public DbSet<Hive> Hives { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Honey> Honey { get; set; }
+        public DbSet<Inspect> Inspects { get; set; }
 
 
     }

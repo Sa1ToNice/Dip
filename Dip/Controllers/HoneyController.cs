@@ -28,7 +28,7 @@ namespace Dip.Controllers
         [Authorize]
         public IActionResult Index(int aid, int hid)
         {
-            ViewBag.Title = "Сбор меда";
+            ViewBag.Title = "Сбор продуктов";
             IEnumerable<Honey> hone = db.Honey.Where(i => i.Hive.Apiary.User.Email.Equals(User.Identity.Name) && i.Hive.Apiary.Id == aid && i.Hive.Id == hid).OrderByDescending(i => i.Date);
             Hive hiv = db.Hives.FirstOrDefault(i => i.Apiary.User.Email.Equals(User.Identity.Name) && i.Apiary.Id == aid && i.Id == hid);
             if (hiv == null)
@@ -51,7 +51,7 @@ namespace Dip.Controllers
         [Authorize]
         public async Task<IActionResult> Index(HoneyViewModel hvm)
         {
-            ViewBag.Title = "Сбор меда";
+            ViewBag.Title = "Сбор продуктов";
             IEnumerable<Honey> hone = db.Honey.Where(i => i.Hive.Apiary.User.Email.Equals(User.Identity.Name) && i.Hive.Apiary.Id == hvm.Aid && i.Hive.Id == hvm.Hid).OrderByDescending(i => i.Date);
             hvm.Honeys = hone;
             Hive hiv = db.Hives.FirstOrDefault(i => i.Apiary.User.Email.Equals(User.Identity.Name) && i.Apiary.Id == hvm.Aid && i.Id == hvm.Hid);
@@ -65,7 +65,7 @@ namespace Dip.Controllers
                
 
                     Hive courseToUpdate = await db.Hives.FirstOrDefaultAsync(c => c.Apiary.Id == hvm.Aid && c.Id == hvm.Hid);
-                    db.Honey.Add(new Honey { Get = hvm.Get, Date = hvm.Date, Hive = courseToUpdate });
+                    db.Honey.Add(new Honey {Prod = hvm.Prod, Get = hvm.Get, Date = hvm.Date, Hive = courseToUpdate });
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index", "Honey", new { aid = hvm.Aid, hid = hvm.Hid });
 
@@ -81,7 +81,7 @@ namespace Dip.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id, int aid, int hid)
         {
-            ViewBag.Title = "Сбор меда";
+            ViewBag.Title = "Сбор продуктов";
             
             Honey hone = db.Honey.FirstOrDefault(i => i.Id == id && i.Hive.Id == hid && i.Hive.Apiary.Id == aid && i.Hive.Apiary.User.Email.Equals(User.Identity.Name));
             if (hone == null)

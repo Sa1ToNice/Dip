@@ -17,17 +17,27 @@ namespace Dip.ViewModels
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+
         [Required(ErrorMessage = "Не указано Название")]
-        [StringLength(15)]
+        [StringLength(15, ErrorMessage = "Недопустимая длина")]
         [Display(Name = "Название")]
         public string Name { get; set; }
         
         [Display(Name = "Описание")]
         public string Desc { get; set; }
+        [Range(0, 999999999999999, ErrorMessage = "Недопустимое значение")]
+        [Display(Name = "Сила семьи")]
+        public int Force { set; get; }
+        [Range(0, 999999999999999, ErrorMessage = "Недопустимое значение")]
+        [Display(Name = "Масса улья")]
+        public double Mass { set; get; }
+        [Range(0, 999999999999999, ErrorMessage = "Недопустимое значение")]
         [Display(Name = "Количетво рамок")]
         public int Frame { get; set; }
+        [Range(0, 999999999999999, ErrorMessage = "Недопустимое значение")]
         [Display(Name = "Ширина рамок")]
         public int Wframe { get; set; }
+        [Range(0, 999999999999999, ErrorMessage = "Недопустимое значение")]
         [Display(Name = "Высота рамок")]
         public int Hframe { get; set; }
 

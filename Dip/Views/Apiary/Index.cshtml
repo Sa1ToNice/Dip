@@ -41,7 +41,7 @@
                                     <a class="dropdown-item" asp-action="Edit" asp-controller="Apiary" value="Редактиовать" asp-route-id="@ap.Id">Редактировать</a>
                                     <div class="dropdown-divider"></div>
                                     
-                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#@fix@ap.Name@ap.Id">
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#@fix@ap.Id">
                                         УДАЛИТЬ
                                     </button>
 
@@ -52,7 +52,7 @@
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade text-left" id="@fix@ap.Name@ap.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="@fix@ap.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

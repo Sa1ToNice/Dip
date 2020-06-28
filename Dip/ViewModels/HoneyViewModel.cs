@@ -19,7 +19,11 @@ namespace Dip.ViewModels
         public int Hid { get; set; }
         [Display(Name = "Id")]
         public int Id { set; get; }
-        [Display(Name = "Количество меда")]
+        [Display(Name = "Продукт")]
+        [Required(ErrorMessage = "Не указан продукт")]
+        public string Prod { set; get; }
+        [Range(0.000000000000001 , 999999999999999 , ErrorMessage = "Недопустимое Количество" )]
+        [Display(Name = "Количество")]
         [Required(ErrorMessage = "Не указано количество")]
         public double Get { set; get; }
 

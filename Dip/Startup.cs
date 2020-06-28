@@ -44,6 +44,7 @@ namespace Dip
             services.AddTransient<IHive, HiveRepository>();
             services.AddTransient<IEvent, EventRepository>();
             services.AddTransient<IHoney, HoneyRepository>();
+            services.AddTransient<IInspect, InspectRepository>();
 
 
             // установка конфигурации подключения

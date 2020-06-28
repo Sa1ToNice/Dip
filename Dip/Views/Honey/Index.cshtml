@@ -24,14 +24,29 @@
                       <div class="form-group">
                           <label asp-for="Date"><b>Выберите Дату</b></label>
                           <br />
-                          <input type="date" asp-for="Date" value="" />
+                          <input type="date" asp-for="Date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                           <span asp-validation-for="Date" class="text-danger"></span>
                       </div>
 
                       <div class="form-group">
-                          <label asp-for="Get"><b>Собрано меда(кг)</b></label>
+                          <label asp-for="Prod"><b>Выберите Продукт</b></label>
                           <br />
-                          <input class="w-25" type="text" asp-for="Get" value="" />
+                          <select class="custom-select w-25" asp-for="Prod">
+                              <option selected value="">Продукты</option>
+                              <option value="Мёд">Мёд</option>
+                              <option value="Воск">Воск</option>
+                              <option value="Пыльца">Пыльца</option>
+                              <option value="Прополис">Прополис</option>
+                              <option value="Маточное молочко">Маточное молочко</option>
+                          </select>
+
+                          <span asp-validation-for="Prod" class="text-danger"></span>
+                      </div>
+
+                      <div class="form-group">
+                          <label asp-for="Get"><b>Собрано(г)</b></label>
+                          <br />
+                          <input class="w-25" type="text" asp-for="Get" />
                           <span asp-validation-for="Get" class="text-danger"></span>
                       </div>
                       <input type="submit" value="Добавить" class="btn btn-outline-dark" />
@@ -39,53 +54,89 @@
 
                   <br /><hr />
 
-                        <div class="text-center">
+                  <div class="text-center">
 
 
-                            <h3><b>Журнал сбора меда</b></h3>
-                            <br />
-                            <label>
-                                <b>
-                                    Собрано всего(кг):
-                                    @{double a = 0;
-                                        foreach (var h in Model.Honeys)
-                                        {
-                                            a = a + h.Get;
-                                        }
-                                        <lable>@a</lable>
-                                    }
-
-                                </b>
-                            </label>
-                            <br /><br />
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-
-                                        <th>Дата</th>
-                                        <th>Количество меда(кг)</th>
-                                        <th>Удаление</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var hon in Model.Honeys)
-                                    {
-                                        <tr>
-
-                                            <td><b>@hon.Date</b></td>
-                                            <td>@hon.Get</td>
-                                            <td><a asp-action="Delete" asp-controller="Honey" value="Удалить" class="btn btn-sm btn-outline-danger" asp-route-id="@hon.Id" asp-route-aid="@Model.Aid" asp-route-hid="@Model.Hid">Удалить</a></td>
-                                        </tr>
-                                    }
+                      <h3><b>Журнал сбора</b></h3>
+                      <br />
+                      <label>
+                          <b>
+                              Собрано всего(г):<br />
+                              @{ double med = 0;
+                                  double vosk = 0;
+                                  double pil = 0;
+                                  double prop = 0;
+                                  double molok = 0;
+                                  foreach (var h in Model.Honeys)
+                                  {
+                                      if (h.Prod == "Мёд")
+                                      {
+                                          med = med + h.Get;
+                                      }
+                                      if (h.Prod == "Воск")
+                                      {
+                                          vosk = vosk + h.Get;
+                                      }
+                                      if (h.Prod == "Пыльца")
+                                      {
+                                          pil = pil + h.Get;
+                                      }
+                                      if (h.Prod == "Прополис")
+                                      {
+                                          prop = prop + h.Get;
+                                      }
+                                      if (h.Prod == "Маточное молочко")
+                                      {
+                                          molok = molok + h.Get;
+                                      }
 
 
-                                </tbody>
-                            </table>
-                            <br /><hr />
-                            <a asp-action="HiveView" asp-controller="Apiary" asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+                                  }
+                                  <lable>Мёда: @med</lable><br />
+                                  <lable>Воска: @vosk</lable><br />
+                                  <lable>Пыльцы: @pil</lable><br />
+                                  <lable>Прополиса: @prop</lable><br />
+                                  <lable>Маточного молочка: @molok</lable><br />
+                              }
 
-                        </div>
-                  
+                          </b>
+                      </label>
+                      <br /><br />
+                      <table class="table table-hover">
+                          <thead>
+                              <tr>
+
+                                  <th>Дата</th>
+                                  <th>Продукт</th>
+                                  <th>Количество(г)</th>
+                                  <th>Удаление</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach (var hon in Model.Honeys)
+                              {
+                                  <tr>
+
+                                      <td><b>@hon.Date.ToShortDateString()</b></td>
+                                      <td>@hon.Prod</td>
+                                      <td>@hon.Get</td>
+                                      <td><a asp-action="Delete" asp-controller="Honey" value="Удалить" class="btn btn-sm btn-outline-danger" asp-route-id="@hon.Id" asp-route-aid="@Model.Aid" asp-route-hid="@Model.Hid">Удалить</a></td>
+                                  </tr>
+                              }
+
+
+                          </tbody>
+                      </table>
+                      <br /><hr />
+                      <a asp-action="HiveView" asp-controller="Apiary" asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+
+                  </div>
+
+
+                 
+
                   <br /><br /><br />
               </form>
+
+
     </div>

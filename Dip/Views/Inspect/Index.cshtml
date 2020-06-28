@@ -1,0 +1,83 @@
+﻿@model InspectViewModel
+<div class="container bg-white p-2">
+    <nav class="breadcrumb bg-white">
+        <a class="breadcrumb-item" href="/Home">Home</a>
+        <a class="breadcrumb-item" href="/Apiary">Apiary</a>
+        <a class="breadcrumb-item" href="/Apiary/HiveView/@Model.Aid">Hives</a>
+        <span class="breadcrumb-item active">Inspect</span>
+    </nav>
+
+
+
+    <div class="three"> <h1 class="text-xl-center">Статистика: @Model.HiveName</h1></div>
+
+
+    
+
+    <form asp-action="Index" asp-controller="Inspect" asp-anti-forgery="true">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="Aid" value="@Model.Aid" style="visibility: hidden" />
+        <input asp-for="Hid" value="@Model.Hid" style="visibility: hidden" />
+
+        <br /><hr />
+
+        <div class="text-center">
+
+
+            
+           
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+
+                        <th>Дата</th>
+                        <th>Сила семьи</th>
+                        <th>Количество рамок</th>
+                        <th>Масса улья (кг)</th>
+                        <th>Наличие матки</th>
+                        <th>Дата подсадки</th>
+                        <th>Плодность</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ins in Model.Inspects)
+                    {
+                    <tr>
+
+                        <td><b>@ins.Date.ToShortDateString()</b></td>
+                        <td>@ins.Force</td>
+                        <td>@ins.Frame</td>
+                        <td>@ins.Mass</td>
+                        @if (ins.Matka == true)
+                        {
+                            <td>Да</td>
+                            <td>@ins.DatePods.ToShortDateString()</td>
+                            <td>@ins.Plod</td>
+                        }
+                        else
+                        {
+                            <td>Нет</td>
+                            <td>-</td>
+                            <td>-</td>
+                        }
+
+                    </tr>
+                    }
+
+
+                </tbody>
+            </table>
+            <br /><hr />
+            <a asp-action="HiveView" asp-controller="Apiary" asp-route-id="@Model.Aid" value="Завершить" class="btn btn-outline-dark">Завершить</a>
+
+        </div>
+
+
+        <br /><br /><br />
+    </form>
+
+
+</div>

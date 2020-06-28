@@ -8,6 +8,7 @@ namespace Dip.Data.Models
     public class Honey
     {
         public int Id { set; get; }
+        public string Prod { set; get; }
         public double Get { set; get; }
         public DateTime Date { get; set; }
         public virtual Hive Hive { set; get; }

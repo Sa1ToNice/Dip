@@ -41,6 +41,8 @@ namespace Dip.Controllers
                     Name = hiv.Name,
                     Aid = aId,
                     Desc = hiv.Desc,
+                    Force = hiv.Force,
+                    Mass = hiv.Mass,
                     Frame = hiv.Frame,
                     Wframe = hiv.Wframe,
                     Hframe = hiv.Hframe,
@@ -89,9 +91,6 @@ namespace Dip.Controllers
              return View(ap1);
             }
 
-          
-
-           
 
         }
 
@@ -111,6 +110,8 @@ namespace Dip.Controllers
                 {
                     Apiary courseToUpdate = await db.Apiaries.FirstOrDefaultAsync(c => c.Id == hiveViewModel.Aid);
                     db.Hives.Add(new Hive { Name = hiveViewModel.Name, Desc = hiveViewModel.Desc, Apiary = courseToUpdate, Img= "/img/улей.png",
+                        Force = hiveViewModel.Force,
+                        Mass = hiveViewModel.Mass,
                         Frame = hiveViewModel.Frame,
                         Wframe = hiveViewModel.Wframe,
                         Hframe = hiveViewModel.Hframe,
@@ -131,6 +132,23 @@ namespace Dip.Controllers
                         Prois = hiveViewModel.Prois
                     });
                     await db.SaveChangesAsync();
+
+                    hiv = db.Hives.FirstOrDefault(i => i.Name == hiveViewModel.Name && i.Apiary.Id == hiveViewModel.Aid);
+                    db.Inspects.Add(new Inspect
+                    {
+                        
+                        Force = hiveViewModel.Force,
+                        Mass = hiveViewModel.Mass,
+                        Frame = hiveViewModel.Frame,
+                        Date = DateTime.Today,
+                        Matka = hiveViewModel.Matka,
+                        DatePods = hiveViewModel.DatePods,
+                        Plod = hiveViewModel.Plod,
+                        Hive = hiv,
+                        
+                    });
+                    await db.SaveChangesAsync();
+
                     return RedirectToAction("HiveView", "Apiary", new {id = hiveViewModel.Aid });
                 }
                 else
@@ -174,6 +192,8 @@ namespace Dip.Controllers
                     Name = hive.Name,
                     Desc = hive.Desc,
                     Aid = aId,
+                    Force = hive.Force,
+                    Mass = hive.Mass,
                     Frame = hive.Frame,
                     Hframe = hive.Hframe,
                     Wframe = hive.Wframe,
@@ -217,6 +237,8 @@ namespace Dip.Controllers
                     hive = _hive.Hives.FirstOrDefault(i => i.Id == hiveViewModel.Id);
                     hive.Name = hiveViewModel.Name;
                     hive.Desc = hiveViewModel.Desc;
+                    hive.Force = hiveViewModel.Force;
+                    hive.Mass = hiveViewModel.Mass;
                     hive.Frame = hiveViewModel.Frame;
                     hive.Wframe = hiveViewModel.Wframe;
                     hive.Hframe = hiveViewModel.Hframe;
@@ -238,9 +260,42 @@ namespace Dip.Controllers
 
 
 
-                    await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc, c => c.Frame, c => c.Hframe, c => c.Wframe, c => c.Porod, c => c.Heal, c => c.Heal1, c => c.Heal2,
+                    await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc, c => c.Force, c => c.Mass, c => c.Frame, c => c.Hframe, c => c.Wframe, c => c.Porod, c => c.Heal, c => c.Heal1, c => c.Heal2,
                         c => c.Heal3, c => c.Heal4, c => c.Heal5, c => c.Heal6, c => c.Heal6, c => c.Heal7, c => c.Heal8, c => c.Heal9, c => c.Matka, c => c.DatePods, c => c.Plod, c => c.Prois);
                     await db.SaveChangesAsync();
+
+                    
+                    hive = db.Hives.FirstOrDefault(i => i.Name == hiveViewModel.Name && i.Apiary.Id == hiveViewModel.Aid);
+                    Inspect insp = db.Inspects.FirstOrDefault(i => i.Hive == hive && i.Date == DateTime.Today);                   
+                    if (insp == null)
+                    {
+                        db.Inspects.Add(new Inspect
+                        {
+
+                            Force = hiveViewModel.Force,
+                            Mass = hiveViewModel.Mass,
+                            Frame = hiveViewModel.Frame,
+                            Date = DateTime.Today,
+                            Matka = hiveViewModel.Matka,
+                            DatePods = hiveViewModel.DatePods,
+                            Plod = hiveViewModel.Plod,
+                            Hive = hive,
+
+                        });
+                    }
+                    else
+                    {
+                        insp.Force = hiveViewModel.Force;
+                        insp.Mass = hiveViewModel.Mass;
+                        insp.Frame = hiveViewModel.Frame;
+                        insp.Matka = hiveViewModel.Matka;
+                        insp.DatePods = hiveViewModel.DatePods;
+                        insp.Plod = hiveViewModel.Plod;
+                        await TryUpdateModelAsync<Inspect>(insp, "", c => c.Force, c => c.Mass, c => c.Frame, c => c.Date, c => c.Matka, c => c.DatePods, c => c.Plod, c => c.Hive);
+                        
+                    }                   
+                    await db.SaveChangesAsync();
+
                     return RedirectToAction("HiveView", "Apiary", new { id = hiveViewModel.Aid });
 
                 }
@@ -251,6 +306,8 @@ namespace Dip.Controllers
                     {
                         hive.Name = hiveViewModel.Name;
                         hive.Desc = hiveViewModel.Desc;
+                        hive.Force = hiveViewModel.Force;
+                        hive.Mass = hiveViewModel.Mass;
                         hive.Frame = hiveViewModel.Frame;
                         hive.Wframe = hiveViewModel.Wframe;
                         hive.Hframe = hiveViewModel.Hframe;
@@ -270,8 +327,40 @@ namespace Dip.Controllers
                         hive.Plod = hiveViewModel.Plod;
                         hive.Prois = hiveViewModel.Prois;
 
-                        await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc, c => c.Frame, c => c.Hframe, c => c.Wframe, c => c.Porod, c => c.Heal, c => c.Heal1, c => c.Heal2,
+                        await TryUpdateModelAsync<Hive>(hive, "", c => c.Name, c => c.Desc, c => c.Force, c => c.Mass, c => c.Frame, c => c.Hframe, c => c.Wframe, c => c.Porod, c => c.Heal, c => c.Heal1, c => c.Heal2,
                         c => c.Heal3, c => c.Heal4, c => c.Heal5, c => c.Heal6, c => c.Heal6, c => c.Heal7, c => c.Heal8, c => c.Heal9, c => c.Matka, c => c.DatePods, c => c.Plod, c => c.Prois);
+                        await db.SaveChangesAsync();
+
+
+                        hive = db.Hives.FirstOrDefault(i => i.Name == hiveViewModel.Name && i.Apiary.Id == hiveViewModel.Aid);
+                        Inspect insp = db.Inspects.FirstOrDefault(i => i.Hive == hive && i.Date == DateTime.Today);
+                        if (insp == null)
+                        {
+                            db.Inspects.Add(new Inspect
+                            {
+
+                                Force = hiveViewModel.Force,
+                                Mass = hiveViewModel.Mass,
+                                Frame = hiveViewModel.Frame,
+                                Date = DateTime.Today,
+                                Matka = hiveViewModel.Matka,
+                                DatePods = hiveViewModel.DatePods,
+                                Plod = hiveViewModel.Plod,
+                                Hive = hive,
+
+                            });
+                        }
+                        else
+                        {
+                            insp.Force = hiveViewModel.Force;
+                            insp.Mass = hiveViewModel.Mass;
+                            insp.Frame = hiveViewModel.Frame;
+                            insp.Matka = hiveViewModel.Matka;
+                            insp.DatePods = hiveViewModel.DatePods;
+                            insp.Plod = hiveViewModel.Plod;
+                            await TryUpdateModelAsync<Inspect>(insp, "", c => c.Force, c => c.Mass, c => c.Frame, c => c.Date, c => c.Matka, c => c.DatePods, c => c.Plod, c => c.Hive);
+
+                        }
                         await db.SaveChangesAsync();
                         return RedirectToAction("HiveView", "Apiary", new { id = hiveViewModel.Aid });
 
@@ -314,6 +403,12 @@ namespace Dip.Controllers
             foreach (Honey dhon in hon)
             {
                 db.Honey.Remove(dhon);
+            }
+
+            IEnumerable<Inspect> insp = db.Inspects.Where(i => i.Hive.Id == id).OrderBy(i => i.Id);
+            foreach (Inspect ins in insp)
+            {
+                db.Inspects.Remove(ins);
             }
 
             db.Hives.Remove(hiv);

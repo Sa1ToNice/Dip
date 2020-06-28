@@ -134,6 +134,12 @@ namespace Dip.Controllers
                 db.Honey.Remove(dhon);
             }
 
+            IEnumerable<Inspect> insp = db.Inspects.Where(i => i.Hive.Apiary.Id == id).OrderBy(i => i.Id);
+            foreach (Inspect ins in insp)
+            {
+                db.Inspects.Remove(ins);
+            }
+
             IEnumerable<Hive> hive = db.Hives.Where(i => i.Apiary.Id == id).OrderBy(i => i.Id);
             foreach (Hive var in hive)
             {
@@ -172,8 +178,27 @@ namespace Dip.Controllers
 
                 if (apia == null)
                 {
+                    string map = apiaryViewModel.Map;
+                    if(map != null)
+                    {
+                        int found = apiaryViewModel.Map.IndexOf('"') + 1;
+                        if (found != 0)
+                        {
+                            map = apiaryViewModel.Map.Substring(found);
+                            found = map.IndexOf('"');
+                            if (found != -1)
+                            {
+                                map = map.Remove(found);
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                    
+
                     User courseToUpdate = await db.Users.FirstOrDefaultAsync(c => c.Email == User.Identity.Name.ToString());
-                    db.Apiaries.Add(new Apiary { Name = apiaryViewModel.Name, Map = apiaryViewModel.Map, Desc = apiaryViewModel.Desc, User = courseToUpdate});
+                    db.Apiaries.Add(new Apiary { Name = apiaryViewModel.Name, Map = map, Desc = apiaryViewModel.Desc, User = courseToUpdate});
                     await db.SaveChangesAsync();
                     return RedirectToAction("", "Apiary");
                 }
@@ -232,12 +257,28 @@ namespace Dip.Controllers
 
                 if (apiar == null)
                 {
+                    string map = apiaryViewModel.Map;
+                    if (map != null)
+                    {
+                        map = apiaryViewModel.Map;
+                        int found = apiaryViewModel.Map.IndexOf('"');
+                        if (found != -1)
+                        {
+                            map = apiaryViewModel.Map.Substring(found);
+                            found = map.IndexOf('"');
+                            if (found != -1)
+                            {
+                                map = map.Remove(found);
+                            }
+                        }
+                    }
+                    
                     apiar = _apiary.Apiaries.FirstOrDefault(i => i.Id == apiaryViewModel.Id);
                     apiar.Name = apiaryViewModel.Name;
-                    apiar.Map = apiaryViewModel.Map;
+                    apiar.Map = map;
                     apiar.Desc = apiaryViewModel.Desc;
-
-                    await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name, c => c.Map, c => c.Desc);
+                    db.Update(apiar);
+                    //await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name, c => c.Map, c => c.Desc);
                     await db.SaveChangesAsync();
                     return RedirectToAction("", "Apiary");
 
@@ -247,11 +288,28 @@ namespace Dip.Controllers
                     apiar = _apiary.Apiaries.FirstOrDefault(i => i.Id == apiaryViewModel.Id);
                     if(apiar.Name == apiaryViewModel.Name)
                     {
-                        apiar.Name = apiaryViewModel.Name;
-                        apiar.Map = apiaryViewModel.Map;
-                        apiar.Desc = apiaryViewModel.Desc;
+                        string map = apiaryViewModel.Map;
+                        if (map != null)
+                        {
+                            int found = apiaryViewModel.Map.IndexOf('"') + 1;
+                            if (found != 0)
+                            {
+                                map = apiaryViewModel.Map.Substring(found);
+                                found = map.IndexOf('"');
+                                if (found != -1)
+                                {
+                                    map = map.Remove(found);
+                                }
+                            }
+                        }
 
-                        await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name, c => c.Map, c => c.Desc);
+                        
+                        apiar.Name = apiaryViewModel.Name;
+                        
+                        apiar.Map = map;
+                        apiar.Desc = apiaryViewModel.Desc;
+                        db.Update(apiar);
+                        //await TryUpdateModelAsync<Apiary>(apiar, "", c => c.Name, c => c.Map, c => c.Desc);
                         await db.SaveChangesAsync();
                         return RedirectToAction("", "Apiary");
 

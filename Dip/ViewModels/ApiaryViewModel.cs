@@ -23,7 +23,7 @@ namespace Dip.ViewModels
         public int Id { get; set; }
         
         [Required(ErrorMessage = "Не указано Название")]
-        [StringLength(15)]
+        [StringLength(15, ErrorMessage = "Недопустимая длина")]
         [Display(Name = "Название")]
         public string Name { get; set; }
         

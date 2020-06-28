@@ -138,10 +138,7 @@ namespace Dip.Controllers
             IEnumerable<Event> eves = db.Events.Where(i => i.Hive.Apiary.Id == hive.Apiary.Id && i.Hive.Id == hive.Id).OrderBy(i => i.Id);
             Event eve = eves.FirstOrDefault(i => i.Id == id);
 
-            if (eve.Date < DateTime.Today)
-            {
-                return RedirectToAction("HiveView", "Apiary", new { id = aId });
-            }
+            
 
             if (app == null || hive == null || eve == null)
             {
@@ -149,6 +146,10 @@ namespace Dip.Controllers
             }
             else
             {
+                if (eve.Date < DateTime.Today)
+                {
+                    return RedirectToAction("HiveView", "Apiary", new { id = aId });
+                }
                 var hv = new EventViewModel
                 {
                     Id = eve.Id,

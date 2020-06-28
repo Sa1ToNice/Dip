@@ -9,27 +9,37 @@
         <div class="three"> <h1 class="text-xl-center">Справочник</h1></div>
         <h1></h1>
 
+        <div class="row">
+            <div class="col-1">
 
-        <div class="rounded">
+            </div>
+            <div class="col-10">
+                <div class="rounded">
 
-            @foreach (var inf in Model.getInf)
-            {
-
-
-
-                <a href="List/@inf.Name">
-
-
-                    <b>@inf.Name</b>
-
-                </a>
+                    @foreach (var inf in Model.getInf)
+                    {
 
 
-                <hr />
-            }
+
+                        <a href="List/@inf.Name">
 
 
+                            <b>@inf.Name</b>
+
+                        </a>
+
+
+                        <hr />
+                    }
+
+
+                </div>
+            </div>
+            <div class="col-1">
+
+            </div>
         </div>
+        
         <br />
         <br />
         <br />

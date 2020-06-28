@@ -35,6 +35,20 @@
             </div>
 
             <div class="form-group ">
+                <label asp-for="Force"><b>Введите силу семьи</b></label>
+                <br />
+                <input type="text" asp-for="Force" />
+                <span asp-validation-for="Force" class="text-danger"></span>
+            </div>
+
+            <div class="form-group ">
+                <label asp-for="Mass"><b>Введите массу улья (кг)</b></label>
+                <br />
+                <input type="text" asp-for="Mass" />
+                <span asp-validation-for="Mass" class="text-danger"></span>
+            </div>
+
+            <div class="form-group ">
                 <label asp-for="Frame"><b>Введите количество рамок</b></label>
                 <br />
                 <input type="text" asp-for="Frame" />

@@ -11,6 +11,8 @@ namespace Dip.Data.Models
         public string Name { set; get; }
         public string Desc { set; get; }
         public string Img { set; get; }
+        public int Force { set; get; }
+        public double Mass { set; get; }
         public virtual Apiary Apiary { set; get; }
         public int Frame { get; set; }
         public int Wframe { get; set; }
