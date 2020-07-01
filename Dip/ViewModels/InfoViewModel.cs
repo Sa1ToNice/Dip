@@ -11,5 +11,6 @@ namespace Dip.ViewModels
         public IEnumerable<Info> getInf { get; set; }
 
         public Info oneInf { get; set; }
+        public string[] desc { get; set; }
     }
 }

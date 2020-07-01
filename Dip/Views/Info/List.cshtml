@@ -1,7 +1,11 @@
 ﻿@model InfoViewModel
     
 
-
+    <style>
+        p {
+            text-indent: 20px; /* Отступ первой строки в пикселах */
+        }
+    </style>
 
     <div class="container bg-white p-2">
         <nav class="breadcrumb bg-white">
@@ -20,7 +24,12 @@
 
             </div>
             <div class="col-10">
-                <p>@Model.oneInf.Desc</p>
+                @foreach (var des in Model.desc)
+                {
+                    <p>@des</p>
+
+                }
+                
             </div>
             <div class="col-1">
 

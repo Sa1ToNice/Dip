@@ -62,10 +62,11 @@ namespace Dip.Controllers
         {
             Info info = _info.getInfo(name);
 
-
+            string[] mas = info.Desc.Split("\n");
 
             var inf = new InfoViewModel
-            { oneInf = info };
+            { oneInf = info,
+            desc = mas};
             ViewBag.Title = "Справочник";
             return View(inf);
 
